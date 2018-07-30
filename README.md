@@ -7,9 +7,9 @@
 ## 专业术语
 
 <a name="terms-level-map"></a>
-##### Levels/Scenes/Scenes(关卡/地图/场景)
+##### Levels/Map/Scene(关卡/地图/场景)
 
-“map”(地图)这个词通常也会被称为“level”(关卡)或者“Scenes”(场景)，三者的含义是等同的，
+“map”(地图)这个词通常也会被称为“level”(关卡)或者“Scene”(场景)，三者的含义是等同的，
 
 在Unity惯用Scenes文件夹放置所有的Level文件。
 
@@ -31,7 +31,7 @@
 > 单词之间用下划线链接，单词的首字母可以大写也可以小写，例如：`desert_Eagle`, `Style_Guide`, `a_Series_of_Words`
 
 <a name="terms-var-prop"></a>
-##### Variables / Properties(变量/属性)
+##### Variables / Properties / Field(变量/属性/字段)
 
 '变量'和'属性'和'字段'三个词在很多情况下是可以互相通用的。但如果他们同时出现在一个环境时，含义有一些不同：
 
@@ -145,7 +145,7 @@
 <a name="1.2"></a>
 ### 1.2 资源类型表 ![#](https://img.shields.io/badge/lint-supported-green.svg)
 
-当给一个资源命名的时候，请参照以下表格来决定在[资本资源名](#base-asset-name)前后所使用的前缀和后缀
+当给一个资源命名的时候，请参照以下表格来决定在[基本资源名](#base-asset-name)前后所使用的前缀和后缀
 
 #### 目录
 
@@ -182,9 +182,9 @@
 | Level (Geometry)        |            | _Geo       |                                  |
 | Level (Gameplay)        |            | _Gameplay  |                                  |
 | Material                | M_         |            |                                  |
-| Static Mesh             | S_ or SM_  |            | 选一个，建议使用 S_.             |
-| Skinned Mesh           | SK_        |            |                                  |
-| Texture                 | T_         | _?         | 参照[纹理](#anc-textures)        |
+| Static Mesh             | S_ or SM_  |            | 选一个，建议使用 S_.              |
+| Skinned Mesh            | SK_        |            |                                  |
+| Texture                 | T_         | _?         | 参照[纹理](#anc-textures)         |
 | Particle System         | PS_        |            |                                  |
 | Canvas        | UI_|            |            |
 
@@ -194,9 +194,9 @@
 
 | 资源类型                | 前缀       | 后缀       | 备注                             |
 | ----------------------- | ---------- | ---------- | -------------------------------- |
-| Animator Controller   | AC_       |            |   
-| Animator Override Controller   | AOC_       |            |            
-| Animation      | Am_  |            | 选一个，建议使用 A_. 
+| Animator Controller   | AC_       |               |   
+| Animator Override Controller      | AOC_          |            |            
+| Animation             | AM_  |                    | 
 | Skinned Mesh           | SK_        |            |                                  |
 
 
@@ -226,13 +226,12 @@
 | Texture (Emissive)      | T_         | _E         |                                  |
 | Texture (Mask)          | T_         | _M         |                                  |
 | Texture (Specular)      | T_         | _S         |                                  |
-| Texture (Packed)        | T_         | _*         | 参见下面的[纹理打包备注](#anc-textures-packing). |
+| Texture (Packed)        | T_         | _*         |                                   |
 | Texture Cube            | TC_        |            |                                  |
 | Media Texture           | MT_        |            |                                  |
-| Render Texture           | RT_ or RTT_|            | 选一个，建议使用 RT_.            |
+| Render Texture           | RT_        |            |                                  |
 | Cube Render Texture      | RTC_       |            |                                  |
 
-<a name="anc-textures-packing"</a>
 <a name="1.2.6.1"></a>
 #### 1.2.6.1 纹理合并 ![#](https://img.shields.io/badge/lint-unsupported-red.svg)
 把多张纹理存于一个纹理文件中是很常见的方法，比如通常可以把自发光(Emissive), 粗糙度(Roughness), 环境光(Ambient Occlusion)以RGB通道的形式保存在纹理中，然后在文件的后缀中，注明这些信息，例如`_EGO`
@@ -301,7 +300,7 @@
 
 对资源目录的规范管理和资源文件同等重要，都应该像法律一样被严格遵守。不规范的目录结构会导致严重的混乱。
 
-有多种不同管理UE4资源目录的方法，在本套规范中，我们尽量利用了UE4的资源浏览器的过滤和搜索功能来查找资源，而不是按照资源类型来划分目录结构。
+有多种不同管理Unity资源目录的方法，在本套规范中，我们尽量利用了Unity的Project视图的过滤和搜索功能来查找资源，而不是按照资源类型来划分目录结构。
 
 > 如果你正确遵守了前面使用前缀的资源[命名规范](#1.2)，那么就没有必要按照资源类型创建类似于`Meshes`, `Textures`, 和 `Materials`这样的目录结构，因为你可以在过滤器中通过前缀来找到特定类型的资源
 
@@ -309,7 +308,7 @@
 ### 2e1 目录结构示例
 <pre>
 |-- Assets
-    |-- <a href="#2.2">GenericShooter</a>
+    |-- <a href="#2.2">Fairytale</a>
         |-- Art
         |   |-- Industrial
         |   |   |-- Ambient
@@ -427,7 +426,7 @@
 <a name="2.2.2"></a>
 #### 2.2.2 减少资源迁移时的冲突
 
-当一个团队有多个项目时，从一个项目中把资源拷贝到另一个项目会非常频繁，这时最方便的方法就是使用引擎的资源浏览器提供的Migrate功能，因为这个功能会把资源的依赖项一起拷贝到目标项目中。
+当一个团队有多个项目时，从一个项目中把资源拷贝到另一个项目会非常频繁，这时最方便的方法就是使用Unity的包导入导出功能，因为这个功能会把资源的依赖项一起拷贝到目标项目中。
 
 这些依赖项经常造成麻烦。如果两个工程没有项目顶级目录，那么这些依赖项很容易就会被拷贝过来的同名资源覆盖掉，从而造成意外的更改。
 
@@ -436,7 +435,7 @@
 
 举个例子，你在一个工程中创建了一个基础材质，然后你把这个材质迁移到了另一个工程中。如果你的资源结构中没有顶级目录的设计，那么这个基础材质可能放在`Assets/MaterialLibrary/M_Master`这样的目录中，如果目标工程原本没有这个材质，那么很幸运暂时不会有麻烦。
 
-随着两个工程的推荐，有可能这个基础材质因工程的需求不同而发生了不同的修改。
+随着两个工程的推进，有可能这个基础材质因工程的需求不同而发生了不同的修改。
 
 问题出现在，其中一个项目的美术制作了一个非常不错的模型资源，另一个项目的美术想拿过来用。而这个资源使用了`Assets/MaterialLibrary/M_Master`这个材质，那么当迁移这个模型时，`Assets/MaterialLibrary/M_Master`这个资源就会出现冲突。
 
@@ -451,7 +450,7 @@
 
 当然也不能完全信任商城上的资源能够完全遵守[顶级目录规则](#2.2)。的确有一些商城资源，尽管大部分资源放在了顶级目录下面，但仍然留下了部分资源污染了`Assets`目录
 
-如果坚持这个原则[2.2](#2.2)，最糟糕的情况就是购买了两个不同的商场资源，结果发现他们使用了相同的EPIC的示例资源。但只要你坚持把自己的资源放在自己的工程目录中，并且把使用的EPIC示例资源也放在自己的目录中，那么自己工程也不会受到影响。
+如果坚持这个原则[2.2](#2.2)，最糟糕的情况就是购买了两个不同的商场资源，结果发现他们使用了相同的Unity标准资源。但只要你坚持把自己的资源放在自己的工程目录中，并且把使用的EPIC示例资源也放在自己的目录中，那么自己工程也不会受到影响。
 
 #### 2.2.4 容易维护DLC、子工程、以及补丁包
 
@@ -465,13 +464,13 @@
 
 首先团队成员极容易使用这些尚未准备好的资源，这些资源一旦被删除就会引发问题。例如一个做模型的美术正在调整一个模型资源，这时一个做场景编辑的美术如果在场景中使用了这个模型，那么很可能会导致莫名其妙的问题，进而造成大量的工作浪费。
 
-但如果这些模型放在开发者目录中，那么场景美术人员就没有任何理由使用这些资源。资源浏览器的缺省设置会自动过滤掉这个目录，从而保证正常情况下不可能出现被误用的情况。
+但如果这些模型放在开发者目录中，那么场景美术人员就没有任何理由使用这些资源。
 
-一旦这些资源真正准备好，那么美术人员应该把它们移到正式的工程目录中并修复引用关系，这实际上是让资源从实验阶段'推进'到了生产阶段。
+一旦这些资源真正准备好，那么开发人员应该把它们移到正式的工程目录中并修复引用关系，这实际上是让资源从实验阶段'推进'到了生产阶段。
 
 <a name="2.4"></a>
 <a name="structure-Scenes"></a>
-### 2.4 所有的地图[<sup>*</sup>](#terms-level-map)文件应该保存在一个名为'Scenes'的目录中 ![#](https://img.shields.io/badge/lint-supported-green.svg)
+### 2.4 所有的地图文件应该保存在一个名为'Scenes'的目录中 ![#](https://img.shields.io/badge/lint-supported-green.svg)
 
 地图文件非常特殊，几乎所有工程都有自己的一套关于地图的命名规则，尤其是使用了sub-levels或者streaming levels技术时。但不管你如何组织自己的命名规则，都应该把所有地图保存在`/Assets/ProjectName/Scenes`
 
@@ -481,11 +480,11 @@
 
 <a name="2.5"></a>
 <a name="structure-core"></a>
-### 2.5 使用`Core`目录存储系统蓝图资源以及其他系统资源 ![#](https://img.shields.io/badge/lint-unsupported-red.svg)
+### 2.5 使用`Core`目录存储核心代码资源以及其他文件资源 ![#](https://img.shields.io/badge/lint-unsupported-red.svg)
 
 使用`/Assets/Project/Core`这个目录用来保存一个工程中最为核心的资源。例如，非常基础的`Manager`, `Character`, `PlayerController`, `Sington`, `PlayerState`，以及如此相关的一些资源也应该放在这里。
 
-这个目录非常明显的告诉其他团队成员:"不要碰我！"。非引擎程序员很少有理由去碰这个目录，如果工程目录结构合理，那么游戏设计师只需要使用子类提供的功能就可以工作，负责场景编辑的员工只需要使用专用的的蓝图就可以，而不用碰到这些基础类。
+这个目录非常明显的告诉其他团队成员:"不要碰我！"。非引擎程序员很少有理由去碰这个目录，如果工程目录结构合理，那么游戏设计师只需要使用子类提供的功能就可以工作，负责场景编辑的员工只需要使用专用的Prefab就可以，而不用碰到这些基础类。
 
 例如，如果项目需要设计一种可以放置在场景中并且可以被捡起的物体，那么应该首先设计一个具有被捡起功能的基类放在`Core/Pickups`目录中，而各种具体的可以被捡起的物体诸如药瓶、子弹这样的物体，应该放在`/Assets/Project/Placeables/Pickups/`这样的目录中。游戏设计师可以在这些目录中定义和设计这些物体，所以他们不应该去碰`Core/Pickups`目录下的代码，要不然可能无意中破坏工程中的其他功能
 
@@ -546,8 +545,6 @@
 
 > 3.3 函数[Functions](#bp-functions)
 
-> 3.4 图形节点[Graphs](#bp-graphs)
-
 <a name="3.1"></a>
 <a name="bp-compiling"></a>
 ### 3.1 编译 ![#](https://img.shields.io/badge/lint-supported-green.svg)
@@ -571,14 +568,6 @@
 > 3.2.3 分类[Categories](#bp-vars-categories)
 
 > 3.2.4 权限[Access](#bp-vars-access)
-
-> 3.2.5 高级[Advanced](#bp-vars-advanced)
-
-> 3.2.6 临时变量[Transient](#bp-vars-transient)
-
-> 3.2.7 游戏存档[SaveGame](#bp-vars-savegame)
-
-> 3.2.8 配置[Config](#bp-vars-config)
 
 <a name="3.2.1"></a>
 <a name="bp-var-naming"></a>
@@ -657,7 +646,7 @@
 * `CharacterSkills`
 * `ChosenCharacterSkin`
 
-这些变量的命名都很臃肿。因为这些变量都是属于一个角色类`BPlayerCharacter`的，没必要在变量中再重复这一点。
+这些变量的命名都很臃肿。因为这些变量都是属于一个角色类`layerCharacter`的，没必要在变量中再重复这一点。
 
 **好的命名**
 
@@ -673,12 +662,6 @@
 ##### 3.2.1.6 **不要**在变量中包含原生变量类型名 ![#](https://img.shields.io/badge/lint-supported-green.svg)
 
 所谓原生变量是指那些最简单的保存数据的变量类型，比如布尔类型、整数、浮点数以及枚举。
-
-String和vectors在蓝图中也属于原生变量类型，但严格来讲它们其实不是。
-
-> 由三个浮点数组成的vector经常被视为一个整体数据类型，比如旋转向量。
-
-> 文本类型变量(Text)不属于原生类型，因为它们内部还包含有国际化信息。原生类型的字符串变量类型是`String` , 而不是`Text`。
 
 原生类型的变量名中不应该包含变量类型名。
 
@@ -721,9 +704,9 @@ String和vectors在蓝图中也属于原生变量类型，但严格来讲它们�
 
 所有可以安全的更改数据内容的变量都需要被标记为`public`
 
-相反，所有不能更改或者不能暴露给设计师的变量都需要标记为`private`，除非因为引擎的原因，这些变量需要被标为`[SerializedFeild]`
+相反，所有不能更改或者不能暴露给设计师的变量都需要标记为`private`，如果确实要暴露给设计师但又不想破坏程序封装，这些变量就需要被标为`[SerializedFeild]`
 
-总之不要轻易使用`public`
+总之不要轻易使用`public`。
 
 <a name="3.2.2.1"></a>
 <a name="bp-vars-editable-tooltips"></a>
@@ -737,7 +720,7 @@ String和vectors在蓝图中也属于原生变量类型，但严格来讲它们�
 
 对于可编辑的变量，如果不适合直接输入具体数值，那么应该通过一个滑动条(Slider)并且加上取值范围来让设计师输入。可以用`[Range(min,max)]`属性实现。
 
-举例：一个产生围墙的蓝图，拥有一个`PostsCount`的变量，那么-1显然适合不合理的输入，所以需要设上取值范围注明0是最小值，
+举例：一个产生围墙的类，拥有一个`PostsCount`的变量，那么-1显然适合不合理的输入，所以需要设上取值范围注明0是最小值，
 
 一个变量的取值范围只有当明确知道其范围时才需要定义，因为滑块的取值范围的确能够阻止用户输入危险数值，但用户仍然能够通过手动输入的方式输入一个超出滑块范围的值给变量，如果变量的取值范围未定义，那么这个值就会变得'很危险'但还是在合理的。
 
