@@ -1,30 +1,17 @@
-# [Gamemakin](https://gamemak.in) UE4工程规范() {
+# Unity工程规范() {
 
-*最合理的UE4规范*
+*最合理的Unity规范*
 
 灵感来源于Airbnb的JS规范 [Airbnb Javascript Style Guide](https://github.com/airbnb/javascript).
-
-[![Analytics](https://ga-beacon.appspot.com/UA-80567399-1/repo?useReferrer)](#) ![#](https://img.shields.io/badge/lint-partial_support-yellow.svg)
-
-## 为Unreal Engine 4开发的Linter插件
-
-一套可以自动检查UE4工程规范的插件已经在[虚幻商城](https://www.unrealengine.com/marketplace/linter)出售。插件源码会免费提供，但为了避免编译源码，请从虚幻商城上下载该插件使用。
-
-## 讨论该规范
-
-Gamemakin LLC 有一个公开的讨论板块，地址是http://discord.gamemak.in ，如果你有关于本套规范或者插件的任何想法，都可以在其中的#linter频道中讨论。
-
-## 链接到本文档
-
-本文（英文原文）的任何章节都有数字超链接地址，你可以直接通过本文的短地址http://ue4.style 再加上章节编号，直接链接到本文的任意位置。
-例如，如果你想链接到本文的第一节，可以使用地址http://ue4.style#0.1
 
 ## 专业术语
 
 <a name="terms-level-map"></a>
-##### Levels/Maps(关卡/地图)
+##### Levels/Scenes/Scenes(关卡/地图/场景)
 
-“map”(地图)这个词通常也会被称为“level”(关卡)，两者的含义是等同的，在[这里](https://en.wikipedia.org/wiki/Level_(video_gaming))可以查看这个词的发展经历
+“map”(地图)这个词通常也会被称为“level”(关卡)或者“Scenes”(场景)，三者的含义是等同的，
+
+在Unity惯用Scenes文件夹放置所有的Level文件。
 
 <a name="terms-cases"></a>
 ##### Cases(大小写）
@@ -46,19 +33,23 @@ Gamemakin LLC 有一个公开的讨论板块，地址是http://discord.gamemak.i
 <a name="terms-var-prop"></a>
 ##### Variables / Properties(变量/属性)
 
-'变量'和'属性'两个词在很多情况下是可以互相通用的。但如果他们同时出现在一个环境时，含义有一些不同：
+'变量'和'属性'和'字段'三个词在很多情况下是可以互相通用的。但如果他们同时出现在一个环境时，含义有一些不同：
+
+<a name="terms-fields"></a>
+###### fields (字段)
+'字段'通常定义在一个类的内部。例如，如果一个类`PlayerFollower`有一个内部成员`bFollowing`，那么`bFollowing`可以是做是`PlayerFollower`的一个字段
 
 <a name="terms-property"></a>
 ###### Property (属性)
-'属性'通常定义在一个类的内部。例如，如果一个类`BP_Barrel`有一个内部成员`bExploded`，那么`bExploded`可以是做是`BP_Barrel`的一个属性
+'属性'相当于是给字段加了一个保护套，如果想读这个字段的值，属性里面走的一定是get{}，如果想给字段赋值，属性里一定走的是set{}，那么程序员可以在get{}和set{}中增加一些限制，验证要赋值的内容。
 
-当'属性'用在类的内部时，通常用来获取已经定义好的数据
+当'属性'用在类的内部时，通常用来获取已经定义好的数据，比如PlayerController.Pawn(属性)拿到正在控制对象。
 
 <a name="terms-variable"></a>
 ###### Variable (变量)
 '变量'通常用在给函数传递参数，或者用在函数内的局部变量
 
-当'变量'用在类的内部时，通常是用来定义什么或者用来保存某些数据的。
+当'变量'用在类的内部时，通常是用来定义什么或者用来保存某些数据的(比如对组件的各种引用，或者一些可编辑项)。
 
 <a name="0"></a>
 ## 0. 原则
@@ -101,7 +92,7 @@ Gamemakin LLC 有一个公开的讨论板块，地址是http://discord.gamemak.i
 
 > 1. [资源命名约定](#anc)
 > 1. [目录结构](#structure)
-> 1. [蓝图](#bp)
+> 1. [代码](#bp)
 
 <a name="anc"></a>
 <a name="1"></a>
@@ -136,21 +127,19 @@ Gamemakin LLC 有一个公开的讨论板块，地址是http://discord.gamemak.i
 
 | 资源类型                | 资源名                                                     |
 | ----------------------- | ---------------------------------------------------------- |
-| Skeletal Mesh           | SK_Bob                                                     |
+| Skinned Mesh           | SK_Bob                                                     |
 | Material                | M_Bob                                                      |
 | Texture (Diffuse/Albedo)| T_Bob_D                                                    |
 | Texture (Normal)        | T_Bob_N                                                    |
 | Texture (Evil Diffuse)  | T_Bob_Evil_D                                               |
 
-##### 1.1e2 Rocks
+##### 1.1e2 Rocks（石头）
 
 | 资源类型                | 资源名                                                     |
 | ----------------------- | ---------------------------------------------------------- |
 | Static Mesh (01)        | S_Rock_01                                                  |
 | Static Mesh (02)        | S_Rock_02                                                  |
 | Static Mesh (03)        | S_Rock_03                                                  |
-| Material                | M_Rock                                                     |
-| Material Instance (Snow)| MI_Rock_Snow                                               |
 
 <a name="asset-name-modifiers"></a>
 <a name="1.2"></a>
@@ -164,17 +153,13 @@ Gamemakin LLC 有一个公开的讨论板块，地址是http://discord.gamemak.i
 
 > 1.2.2 动作[Animations](#anc-animations)
 
-> 1.2.3 人工智能[Artificial Intelligence](#anc-ai)
-
-> 1.2.4 蓝图[Blueprints](#anc-bp)
-
 > 1.2.5 材质[Materials](#anc-materials)
 
 > 1.2.6 纹理[Textures](#anc-textures)
 
 > 1.2.7 杂项[Miscellaneous](#anc-misc)
 
-> 1.2.8 [Paper 2D](#anc-paper2d)
+> 1.2.8 精灵[Sprites](#anc-paper2d)
 
 > 1.2.9 物理[Physics](#anc-physics)
 
@@ -190,19 +175,18 @@ Gamemakin LLC 有一个公开的讨论板块，地址是http://discord.gamemak.i
 
 | 资源类型                | 前缀       | 后缀       | 备注                             |
 | ----------------------- | ---------- | ---------- | -------------------------------- |
-| Level / Map             |            |            | [所有地图应该放在Maps目录下](#2.4) |
-| Level (Persistent)      |            | _P         |                                  |
+| Level / Map             |            |            | [所有地图应该放在Scenes/Maps目录下](#2.4) |
+| Level (Persistent)      |            | _P         | _P表示是一个大的容器Level，在这个Level里可以异步加载其他小Level                               |
 | Level (Audio)           |            | _Audio     |                                  |
 | Level (Lighting)        |            | _Lighting  |                                  |
 | Level (Geometry)        |            | _Geo       |                                  |
 | Level (Gameplay)        |            | _Gameplay  |                                  |
-| Blueprint               | BP_        |            |                                  |
 | Material                | M_         |            |                                  |
 | Static Mesh             | S_ or SM_  |            | 选一个，建议使用 S_.             |
-| Skeletal Mesh           | SK_        |            |                                  |
+| Skinned Mesh           | SK_        |            |                                  |
 | Texture                 | T_         | _?         | 参照[纹理](#anc-textures)        |
 | Particle System         | PS_        |            |                                  |
-| Widget Blueprint        | WBP_ or WB_|            | 选一个，建议使用 WBP_.           |
+| Canvas        | UI_|            |            |
 
 <a name="anc-animations"></a>
 <a name="1.2.2"></a>
@@ -210,47 +194,11 @@ Gamemakin LLC 有一个公开的讨论板块，地址是http://discord.gamemak.i
 
 | 资源类型                | 前缀       | 后缀       | 备注                             |
 | ----------------------- | ---------- | ---------- | -------------------------------- |
-| Aim Offset              | AO_        |            |                                  |
-| Aim Offset 1D           | AO_        |            |                                  |
-| Animation Blueprint     | ABP_       |            |                                  |
-| Animation Composite     | AC_        |            |                                  |
-| Animation Montage       | AM_        |            |                                  |
-| Animation Sequence      | A_ or AS_  |            | 选一个，建议使用 A_.             |
-| Blend Space             | BS_        |            |                                  |
-| Blend Space 1D          | BS_        |            |                                  |
-| Level Sequence          | LS_        |            |                                  |
-| Morph Target            | MT_        |            |                                  |
-| Paper Flipbook          | PFB_       |            |                                  |
-| Rig                     | Rig_       |            |                                  |
-| Skeletal Mesh           | SK_        |            |                                  |
-| Skeleton                | SKEL_      |            |                                  |
+| Animator Controller   | AC_       |            |   
+| Animator Override Controller   | AOC_       |            |            
+| Animation      | Am_  |            | 选一个，建议使用 A_. 
+| Skinned Mesh           | SK_        |            |                                  |
 
-<a name="anc-ai"></a>
-<a name="1.2.3"></a>
-### 1.2.3 AI ![#](https://img.shields.io/badge/lint-supported-green.svg)
-
-| 资源类型                | 前缀       | 后缀       | 备注                             |
-| ----------------------- | ---------- | ---------- | -------------------------------- |
-| AI Controller           | AIC_       |            |                                  |
-| Behavior Tree           | BT_        |            |                                  |
-| Blackboard              | BB_        |            |                                  |
-| Decorator               | BTDecorator_ |          |                                  |
-| Service                 | BTService_ |            |                                  |
-| Task                    | BTTask_    |            |                                  |
-
-<a name="anc-bp"></a>
-<a name="1.2.4"></a>
-### 1.2.4 蓝图 ![#](https://img.shields.io/badge/lint-supported-green.svg)
-
-| 资源类型                | 前缀       | 后缀       | 备注                             |
-| ----------------------- | ---------- | ---------- | -------------------------------- |
-| Blueprint               | BP_        |            |                                  |
-| Blueprint Function Library | BPFL_   |            |                                  |
-| Blueprint Interface     | BPI_       |            |                                  |
-| Blueprint Macro Library | BPML_      |            | 可能的话尽量不要使用蓝图宏       |
-| Enumeration             | E          |            | 没有下划线                       |
-| Structure               | F or S     |            | 没有下划线                       |
-| Widget Blueprint        | WBP_ or WB_|            | 选一个，建议使用 WBP_.           |
 
 <a name="anc-materials"></a>
 <a name="1.2.5"></a>
@@ -259,11 +207,7 @@ Gamemakin LLC 有一个公开的讨论板块，地址是http://discord.gamemak.i
 | 资源类型                | 前缀       | 后缀       | 备注                             |
 | ----------------------- | ---------- | ---------- | -------------------------------- |
 | Material                | M_         |            |                                  |
-| Material (Post Process) | PP_        |            |                                  |
-| Material Function       | MF_        |            |                                  |
-| Material Instance       | MI_        |            |                                  |
-| Material Parameter Collection | MPC_ |            |                                  |
-| Subsurface Profile      | SP_ or SSP_|            | 选一个，建议使用 SP_.            |
+| Shader | S_/SD_        |            |             建议SD_                    |
 | Physical Materials      | PM_        |            |                                  |
 
 <a name="anc-textures"></a>
@@ -285,9 +229,8 @@ Gamemakin LLC 有一个公开的讨论板块，地址是http://discord.gamemak.i
 | Texture (Packed)        | T_         | _*         | 参见下面的[纹理打包备注](#anc-textures-packing). |
 | Texture Cube            | TC_        |            |                                  |
 | Media Texture           | MT_        |            |                                  |
-| Render Target           | RT_ or RTT_|            | 选一个，建议使用 RT_.            |
-| Cube Render Target      | RTC_       |            |                                  |
-| Texture Light Profile   | TLP        |            |                                  |
+| Render Texture           | RT_ or RTT_|            | 选一个，建议使用 RT_.            |
+| Cube Render Texture      | RTC_       |            |                                  |
 
 <a name="anc-textures-packing"</a>
 <a name="1.2.6.1"></a>
@@ -304,25 +247,8 @@ Gamemakin LLC 有一个公开的讨论板块，地址是http://discord.gamemak.i
 
 | 资源类型                | 前缀       | 后缀       | 备注                             |
 | ----------------------- | ---------- | ---------- | -------------------------------- |
-| Animated Vector Field   | VFA_       |            |                                  |
-| Camera Anim             | CA_        |            |                                  |
-| Color Curve             | Curve_     | _Color     |                                  |
-| Curve Table             | Curve_     | _Table     |                                  |
-| Data Asset              | *_         |            | 前缀取决于何种类型资源           |
-| Data Table              | DT_        |            |                                  |
-| Float Curve             | Curve_     | _Float     |                                  |
-| Foliage Type            | FT_        |            |                                  |
-| Force Feedback Effect   | FFE_       |            |                                  |
-| Landscape Grass Type    | LG_        |            |                                  |
-| Landscape Layer         | LL_        |            |                                  |
-| Matinee Data            | Matinee_   |            |                                  |
-| Media Player            | MP_        |            |                                  |
-| Object Library          | OL_        |            |                                  |
-| Redirector              |            |            | (暂时空缺，尽快解决)             |
-| Sprite Sheet            | SS_        |            |                                  |
-| Static Vector Field     | VF_        |            |                                  |
-| Touch Interface Setup   | TI_        |            |                                  |
-| Vector Curve            | Curve_     | _Vector    |                                  |
+| Playables Behavior  | PB_       |            |                                  |
+| Playables Assets  | PA_       |            |                                  |
 
 <a name="anc-paper2d"></a>
 <a name="1.2.8"></a>
@@ -330,11 +256,9 @@ Gamemakin LLC 有一个公开的讨论板块，地址是http://discord.gamemak.i
 
 | 资源类型                | 前缀       | 后缀       | 备注                             |
 | ----------------------- | ---------- | ---------- | -------------------------------- |
-| Paper Flipbook          | PFB_       |            |                                  |
-| Sprite                  | SPR_       |            |                                  |
-| Sprite Atlas Group      | SPRG_      |            |                                  |
+| Sprite                  | SPR_/SP_       |            |                                  |
+| Sprite Atlas Group      | SPRG_/SPG_      |            |                                  |
 | Tile Map                | TM_        |            |                                  |
-| Tile Set                | TS_        |            |                                  |
 
 <a name="anc-physics"></a>
 <a name="1.2.9"></a>
@@ -343,7 +267,6 @@ Gamemakin LLC 有一个公开的讨论板块，地址是http://discord.gamemak.i
 | 资源类型                | 前缀       | 后缀       | 备注                             |
 | ----------------------- | ---------- | ---------- | -------------------------------- |
 | Physical Material       | PM_        |            |                                  |
-| Physical Asset	  | PHYS_      |            |                                  |
 | Destructible Mesh       | DM_        |            |                                  |
 
 <a name="anc-sounds"></a>
@@ -352,15 +275,7 @@ Gamemakin LLC 有一个公开的讨论板块，地址是http://discord.gamemak.i
 
 | 资源类型                | 前缀       | 后缀       | 备注                             |
 | ----------------------- | ---------- | ---------- | -------------------------------- |
-| Dialogue Voice          | DV_        |            |                                  |
-| Dialogue Wave           | DW_        |            |                                  |
-| Media Sound Wave        | MSW_       |            |                                  |
-| Reverb Effect           | Reverb_    |            |                                  |
-| Sound Attenuation       | ATT_       |            |                                  |
-| Sound Class             |            |            | 没有前缀和后缀，这些资源应该放在SoundClasses目录中 |
-| Sound Concurrency       |            | _SC        | 在SoundClass之后命名             |
-| Sound Cue               | A_         | _Cue       |                                  |
-| Sound Mix               | Mix_       |            |                                  |
+| Audio Mixer               | Mix_       |            |                                  |
 | Sound Wave              | A_         |            |                                  |
 
 <a name="anc-ui"></a>
@@ -370,9 +285,6 @@ Gamemakin LLC 有一个公开的讨论板块，地址是http://discord.gamemak.i
 | 资源类型                | 前缀       | 后缀       | 备注                             |
 | ----------------------- | ---------- | ---------- | -------------------------------- |
 | Font                    | Font_      |            |                                  |
-| Slate Brush             | Brush_     |            |                                  |
-| Slate Widget Style      | Style_     |            |                                  |
-| Widget Blueprint        | WBP_ or WB_|            | 选一个，建议使用 WBP_.           |
 
 <a name="anc-effects"></a>
 <a name="1.2.12"></a>
@@ -396,7 +308,7 @@ Gamemakin LLC 有一个公开的讨论板块，地址是http://discord.gamemak.i
 <a name="2e1"><a>
 ### 2e1 目录结构示例
 <pre>
-|-- Content
+|-- Assets
     |-- <a href="#2.2">GenericShooter</a>
         |-- Art
         |   |-- Industrial
@@ -428,9 +340,9 @@ Gamemakin LLC 有一个公开的讨论板块，地址是http://discord.gamemak.i
         |   |-- Electrical
         |   |-- Fire
         |   |-- Weather
-        |-- <a href="#2.4">Maps</a>
-        |   |-- Campaign1
-        |   |-- Campaign2
+        |-- <a href="#2.4">Scenes</a>
+        |   |-- Level1
+        |   |-- Level2
         |-- <a href="#2.8">MaterialLibrary</a>
         |   |-- Debug
         |   |-- Metal
@@ -457,7 +369,7 @@ Gamemakin LLC 有一个公开的讨论板块，地址是http://discord.gamemak.i
 
 > 2.3 开发者目录[Developer Folders](#structure-developers)
 
-> 2.4 地图目录[Maps](#structure-maps)
+> 2.4 地图目录[Scenes](#structure-Scenes)
 
 > 2.5 核心资源[Core](#structure-core)
 
@@ -499,9 +411,9 @@ Gamemakin LLC 有一个公开的讨论板块，地址是http://discord.gamemak.i
 <a name="structure-top-level"><a>
 ### 2.2 使用一个顶级目录来保存所有工程资源 ![#](https://img.shields.io/badge/lint-supported-green.svg)
 
-所有的工程资源都应该保存在一个以工程名命名的目录中。例如你有一个工程叫做'Generic Shooter'，那么所有该工程的资源都应该保存在`Content/GenericShooter`目录中。
+所有的工程资源都应该保存在一个以工程名命名的目录中。例如你有一个工程叫做'Fairytale'，那么所有该工程的资源都应该保存在`Assets/Fairytale`目录中。
 
-> 开发者目录`Developers`不用受此限制，因为开发者资源是跨工程使用的，参照下面的[开发者目录](#2.3)中的详细说明。
+> 开发者目录`Developers`不用受此限制，因为开发者资源是以实验目的使用的，参照下面的[开发者目录](#2.3)中的详细说明。
 
 使用顶级目录的原因有很多。
 
@@ -519,20 +431,16 @@ Gamemakin LLC 有一个公开的讨论板块，地址是http://discord.gamemak.i
 
 这些依赖项经常造成麻烦。如果两个工程没有项目顶级目录，那么这些依赖项很容易就会被拷贝过来的同名资源覆盖掉，从而造成意外的更改。
 
-这也是为什么EPIC会强制要求商城中出售的资源要遵守同样的规定的原因
-
-执行完Migrate资源拷贝后，安全的资源合并方法是使用资源浏览器中的'替换引用'(Replace References)工具，把不属于工程目录中的资源引用替换掉。一旦资源资源完成完整的合并流程，工程目录中不应该存在另一个工程的顶级目录。这种方法可以_100%_保证资源合并的安全性。
-
 <a name="2.2.2e1"></a>
 ##### 2.2.2e1 举例：基础材质的麻烦
 
-举个例子，你在一个工程中创建了一个基础材质，然后你把这个材质迁移到了另一个工程中。如果你的资源结构中没有顶级目录的设计，那么这个基础材质可能放在`Content/MaterialLibrary/M_Master`这样的目录中，如果目标工程原本没有这个材质，那么很幸运暂时不会有麻烦。
+举个例子，你在一个工程中创建了一个基础材质，然后你把这个材质迁移到了另一个工程中。如果你的资源结构中没有顶级目录的设计，那么这个基础材质可能放在`Assets/MaterialLibrary/M_Master`这样的目录中，如果目标工程原本没有这个材质，那么很幸运暂时不会有麻烦。
 
 随着两个工程的推荐，有可能这个基础材质因工程的需求不同而发生了不同的修改。
 
-问题出现在，其中一个项目的美术制作了一个非常不错的模型资源，另一个项目的美术想拿过来用。而这个资源使用了`Content/MaterialLibrary/M_Master`这个材质，那么当迁移这个模型时，`Content/MaterialLibrary/M_Master`这个资源就会出现冲突。
+问题出现在，其中一个项目的美术制作了一个非常不错的模型资源，另一个项目的美术想拿过来用。而这个资源使用了`Assets/MaterialLibrary/M_Master`这个材质，那么当迁移这个模型时，`Assets/MaterialLibrary/M_Master`这个资源就会出现冲突。
 
-这种冲突难以解决也难以预测，迁移资源的人可能压根就不熟悉工程所依赖的材质是同一个人开发的，也不清楚所依赖的资源已经发生了冲突，迁移资源必须同时拷贝资源依赖项，所以`Content/MaterialLibrary/M_Master`就被莫名其妙覆盖了。
+这种冲突难以解决也难以预测，迁移资源的人可能压根就不熟悉工程所依赖的材质是同一个人开发的，也不清楚所依赖的资源已经发生了冲突，迁移资源必须同时拷贝资源依赖项，所以`Assets/MaterialLibrary/M_Master`就被莫名其妙覆盖了。
 
 和这种情况类似，任何资源的依赖项的不兼容都会让资源在迁移中被破坏掉，如果没有资源顶级目录，资源迁移就会变成一场非常让人恶心的任务。
 
@@ -541,7 +449,7 @@ Gamemakin LLC 有一个公开的讨论板块，地址是http://discord.gamemak.i
 
 正如上面[2.2.2](#2.2.2)所讲，如果一个团队想把官方范例、模板以及商城中购买的资源放到自己的工程中，那么这些资源都是可以保证不会干扰现有工程的，除非你购买的资源工程和你的工程同名。
 
-当然也不能完全信任商城上的资源能够完全遵守[顶级目录规则](#2.2)。的确有一些商城资源，尽管大部分资源放在了顶级目录下面，但仍然留下了部分资源污染了`Content`目录
+当然也不能完全信任商城上的资源能够完全遵守[顶级目录规则](#2.2)。的确有一些商城资源，尽管大部分资源放在了顶级目录下面，但仍然留下了部分资源污染了`Assets`目录
 
 如果坚持这个原则[2.2](#2.2)，最糟糕的情况就是购买了两个不同的商场资源，结果发现他们使用了相同的EPIC的示例资源。但只要你坚持把自己的资源放在自己的工程目录中，并且把使用的EPIC示例资源也放在自己的目录中，那么自己工程也不会受到影响。
 
@@ -562,12 +470,12 @@ Gamemakin LLC 有一个公开的讨论板块，地址是http://discord.gamemak.i
 一旦这些资源真正准备好，那么美术人员应该把它们移到正式的工程目录中并修复引用关系，这实际上是让资源从实验阶段'推进'到了生产阶段。
 
 <a name="2.4"></a>
-<a name="structure-maps"></a>
-### 2.4 所有的地图[<sup>*</sup>](#terms-level-map)文件应该保存在一个名为'Maps'的目录中 ![#](https://img.shields.io/badge/lint-supported-green.svg)
+<a name="structure-Scenes"></a>
+### 2.4 所有的地图[<sup>*</sup>](#terms-level-map)文件应该保存在一个名为'Scenes'的目录中 ![#](https://img.shields.io/badge/lint-supported-green.svg)
 
-地图文件非常特殊，几乎所有工程都有自己的一套关于地图的命名规则，尤其是使用了sub-levels或者streaming levels技术时。但不管你如何组织自己的命名规则，都应该把所有地图保存在`/Content/Project/Maps`
+地图文件非常特殊，几乎所有工程都有自己的一套关于地图的命名规则，尤其是使用了sub-levels或者streaming levels技术时。但不管你如何组织自己的命名规则，都应该把所有地图保存在`/Assets/ProjectName/Scenes`
 
-记住，尽量使用不浪费大家的时间的方法去解释你的地图如何打开。比如通过子目录的方法去组织地图资源，例如建立 `Maps/Campaign1/` 或 `Maps/Arenas`，但最重要的是一定要都放在`/Content/Project/Maps`
+记住，尽量使用不浪费大家的时间的方法去解释你的地图如何打开。比如通过子目录的方法去组织地图资源，例如建立 `Scenes/Campaign1/` 或 `Scenes/Arenas`，但最重要的是一定要都放在`/Assets/Project/Scenes`
 
 这也有助于产品的打版本工作，如果工程里的地图保存的到处都是，版本工程师还要到处去找，就让人很恼火了，而把地图放在一个地方，做版本时就很难漏掉某个地图，对于烘培光照贴图或者质量检查都有利。
 
@@ -575,11 +483,11 @@ Gamemakin LLC 有一个公开的讨论板块，地址是http://discord.gamemak.i
 <a name="structure-core"></a>
 ### 2.5 使用`Core`目录存储系统蓝图资源以及其他系统资源 ![#](https://img.shields.io/badge/lint-unsupported-red.svg)
 
-使用`/Content/Project/Core`这个目录用来保存一个工程中最为核心的资源。例如，非常基础的`GameMode`, `Character`, `PlayerController`, `GameState`, `PlayerState`，以及如此相关的一些资源也应该放在这里。
+使用`/Assets/Project/Core`这个目录用来保存一个工程中最为核心的资源。例如，非常基础的`Manager`, `Character`, `PlayerController`, `Sington`, `PlayerState`，以及如此相关的一些资源也应该放在这里。
 
 这个目录非常明显的告诉其他团队成员:"不要碰我！"。非引擎程序员很少有理由去碰这个目录，如果工程目录结构合理，那么游戏设计师只需要使用子类提供的功能就可以工作，负责场景编辑的员工只需要使用专用的的蓝图就可以，而不用碰到这些基础类。
 
-例如，如果项目需要设计一种可以放置在场景中并且可以被捡起的物体，那么应该首先设计一个具有被捡起功能的基类放在`Core/Pickups`目录中，而各种具体的可以被捡起的物体诸如药瓶、子弹这样的物体，应该放在`/Content/Project/Placeables/Pickups/`这样的目录中。游戏设计师可以在这些目录中定义和设计这些物体，所以他们不应该去碰`Core/Pickups`目录下的代码，要不然可能无意中破坏工程中的其他功能
+例如，如果项目需要设计一种可以放置在场景中并且可以被捡起的物体，那么应该首先设计一个具有被捡起功能的基类放在`Core/Pickups`目录中，而各种具体的可以被捡起的物体诸如药瓶、子弹这样的物体，应该放在`/Assets/Project/Placeables/Pickups/`这样的目录中。游戏设计师可以在这些目录中定义和设计这些物体，所以他们不应该去碰`Core/Pickups`目录下的代码，要不然可能无意中破坏工程中的其他功能
 
 <a name="2.6"></a>
 <a name="structure-assettypes"></a>
@@ -617,7 +525,7 @@ Gamemakin LLC 有一个公开的讨论板块，地址是http://discord.gamemak.i
 <a name="structure-material-library"></a>
 ### 2.8 材质库`MaterialLibrary` ![#](https://img.shields.io/badge/lint-unsupported-red.svg)
 
-如果你的工程中使用了任何基础材质、分层材质，或者任何被重复使用而不属于特定模型的材质和纹理，这些资源应该放在材质库目录`Content/Project/MaterialLibrary`。
+如果你的工程中使用了任何基础材质、分层材质，或者任何被重复使用而不属于特定模型的材质和纹理，这些资源应该放在材质库目录`Assets/Project/MaterialLibrary`。
 
 这样可以很容易管理这些'全局'材质
 
@@ -629,13 +537,7 @@ Gamemakin LLC 有一个公开的讨论板块，地址是http://discord.gamemak.i
 
 <a name="3"></a>
 <a name="bp"></a>
-## 3. 蓝图 ![#](https://img.shields.io/badge/lint-partial_support-yellow.svg)
-
-这一章会专注于蓝图和蓝图的实现。如果可能的话，本规则和[Epic官方提供的标准](https://docs.unrealengine.com/latest/INT/Programming/Development/CodingStandard)一致。
-
-Remember: Blueprinting badly bears blunders, beware! (Phrase by [KorkuVeren](http://github.com/KorkuVeren))
-(译者: 这句不懂...)
-
+## 3. 代码 ![#]
 ### 目录
 
 > 3.1 编译[Compiling](#bp-compiling)
@@ -650,11 +552,9 @@ Remember: Blueprinting badly bears blunders, beware! (Phrase by [KorkuVeren](htt
 <a name="bp-compiling"></a>
 ### 3.1 编译 ![#](https://img.shields.io/badge/lint-supported-green.svg)
 
-需要保证所有蓝图在编译时0警告和0错误。你应该尽快修复所有警告和异常，以免它们造成可怕的麻烦。
+需要保证所有代码在编译时0警告和0错误。你应该尽快修复所有警告和异常，以免它们造成可怕的麻烦。
 
-*绝对不要*提交那些断开的蓝图，如果你需要通过源码服务器保存，那么必须暂时搁置它们
-
-断开的蓝图有巨大的破坏力，而且会在蓝图之外展现威力，比如造成引用失效，未定义的行为，烘培失败，或者频繁的重新编译。一个断开的蓝图可能会毁掉整个项目。
+*绝对不要*提交那些测试的代码，如果你需要通过源码服务器保存，那么必须暂时防止到Developer目录下。
 
 <a name="3.2"></a>
 <a name="bp-vars"></a>
@@ -666,7 +566,7 @@ Remember: Blueprinting badly bears blunders, beware! (Phrase by [KorkuVeren](htt
 
 > 3.2.1 命名[Naming](#bp-vars)
 
-> 3.2.2 可编辑行[Editable](#bp-vars-editable)
+> 3.2.2 可编辑[Editable](#bp-vars-editable)
 
 > 3.2.3 分类[Categories](#bp-vars-categories)
 
@@ -714,7 +614,6 @@ Remember: Blueprinting badly bears blunders, beware! (Phrase by [KorkuVeren](htt
 
 例如: 用 `bDead` 和 `bEvil`, **不要** 使用`Dead` 和 `Evil`.
 
-UE4的蓝图编辑器在显示变量名称时，会自动把前缀`b`去掉
 
 <a name="3.2.1.4"></a>
 <a name="bp-var-bool-names"></a>
@@ -747,7 +646,7 @@ UE4的蓝图编辑器在显示变量名称时，会自动把前缀`b`去掉
 <a name="3.2.1.5e"></a>
 ###### 3.2.1.5e 例如:
 
-假设有一个蓝图名为 `BP_PlayerCharacter`.
+假设有一个类名为 `PlayerCharacter`.
 
 **不好的命名**
 
@@ -758,7 +657,7 @@ UE4的蓝图编辑器在显示变量名称时，会自动把前缀`b`去掉
 * `CharacterSkills`
 * `ChosenCharacterSkin`
 
-这些变量的命名都很臃肿。因为这些变量都是属于一个角色蓝图`BP_PlayerCharacter`的，没必要在变量中再重复这一点。
+这些变量的命名都很臃肿。因为这些变量都是属于一个角色类`BPlayerCharacter`的，没必要在变量中再重复这一点。
 
 **好的命名**
 
@@ -799,13 +698,13 @@ String和vectors在蓝图中也属于原生变量类型，但严格来讲它们�
 
 这些变量的名字应该包含数据类型名，但同时要考虑不要重复上下文。
 
-如果一个类中包拥有一个复杂变量的实例，比如一个`BP_PlayerCharacter`中有另一个变量`BP_Hat`，那么这个变量的名字就不需要包含变量类型了。
+如果一个类中包拥有一个复杂变量的实例，比如一个`PlayerCharacter`中有另一个变量`Hat`，那么这个变量的名字就不需要包含变量类型了。
 
 例如: 使用 `Hat`、`Flag`以及 `Ability`，**不要**使用`MyHat`、`MyFlag` 和 `PlayerAbility`
 
 但是，如果一个类并不拥有这个属性，那么就需要在这个属性的名字中包含有类型的名字了
 
-例如：一个蓝图类`BP_Turret`用来顶一个炮塔，它拥有瞄准`BP_PlayerCharacter`作为目标的能力，那么它内部会保存一个变量作为目标，名字应该是`TargetPlayer`，这个名字非常清楚的指明了这个变量的数据类型是什么。
+例如：一个类`Turret`用来顶一个炮塔，它拥有瞄准`PlayerCharacter`作为目标的能力，那么它内部会保存一个变量作为目标，名字应该是`TargetPlayer`，这个名字非常清楚的指明了这个变量的数据类型是什么。
 
 
 <a name="3.2.1.8"></a>
@@ -820,27 +719,25 @@ String和vectors在蓝图中也属于原生变量类型，但严格来讲它们�
 <a name="bp-vars-editable"></a>
 #### 3.2.2 可编辑变量 ![#](https://img.shields.io/badge/lint-partial_support-yellow.svg)
 
-所有可以安全的更改数据内容的变量都需要被标记为`Editable`
+所有可以安全的更改数据内容的变量都需要被标记为`public`
 
-相反，所有不能更改或者不能暴露给设计师的变量都**不能**表上可编辑标志，除非因为引擎的原因，这些变量需要被标为`Expose On Spawn`
+相反，所有不能更改或者不能暴露给设计师的变量都需要标记为`private`，除非因为引擎的原因，这些变量需要被标为`[SerializedFeild]`
 
-总之不要轻易使用`Editable`标记
+总之不要轻易使用`public`
 
 <a name="3.2.2.1"></a>
 <a name="bp-vars-editable-tooltips"></a>
 ##### 3.2.2.1 Tooltips ![#](https://img.shields.io/badge/lint-unsupported-red.svg)
 
-对于所有标记为`Editable`的变量，包括被标记为 `Expose On Spawn`的变量，都应该在其`Tooltip`内填写关于如何改变变量值，以及会产生何种效果的说明。
+对于所有标记为`public`的变量，包括被标记为 `[SerializedFeild]`的变量，都应该加上`[Tooltip("说明内容")]`内填写关于如何改变变量值，以及会产生何种效果的说明。
 
 <a name="3.2.2.2"></a>
 <a name="bp-vars-editable-ranges"></a>
 ##### 3.2.2.2 滑动条(Slider)以及取值范围 ![#](https://img.shields.io/badge/lint-unsupported-red.svg)
 
-对于可编辑的变量，如果不适合直接输入具体数值，那么应该通过一个滑动条(Slider)并且加上取值范围来让设计师输入。
+对于可编辑的变量，如果不适合直接输入具体数值，那么应该通过一个滑动条(Slider)并且加上取值范围来让设计师输入。可以用`[Range(min,max)]`属性实现。
 
-举例：一个产生围墙的蓝图，拥有一个`PostsCount`的变量，那么-1显然适合不合理的输入，所以需要设上取值范围注明0是最小值
-
-如果在构造脚本中需要一个可编辑变量，那么一定要首先定义一个合理的取值范围，要不然可能会有人设上一个非常大的值造成编辑器崩溃。
+举例：一个产生围墙的蓝图，拥有一个`PostsCount`的变量，那么-1显然适合不合理的输入，所以需要设上取值范围注明0是最小值，
 
 一个变量的取值范围只有当明确知道其范围时才需要定义，因为滑块的取值范围的确能够阻止用户输入危险数值，但用户仍然能够通过手动输入的方式输入一个超出滑块范围的值给变量，如果变量的取值范围未定义，那么这个值就会变得'很危险'但还是在合理的。
 
@@ -850,11 +747,7 @@ String和vectors在蓝图中也属于原生变量类型，但严格来讲它们�
 
 如果一个类的变量很少，那么没有必要使用分类
 
-如果一个类的变量规模达到中等(5-10)，那么所有`可编辑`的变量应该自己的分类，而不应该放在缺省分类中，通常叫做 `Config`
-
-如果类中的变量的数量非常大，那么所有可编辑的变量都应该放在`Config`分类的子分类下，所有不可编辑的变量应该根据它们的用途建立相关分类保存
-
-> 通过在分类名中添加字符`|`，你可以直接建立子分类，比如`Config | Animations`
+如果一个类的变量规模达到中等(5-10)，那么所有`public`的变量应该自己的分类,可以使用`[Header("HealthSettings")]`这样的属性实现。
 
 举例：一个武器的类中的变量分类目录大致如下：
 
@@ -868,53 +761,11 @@ String和vectors在蓝图中也属于原生变量类型，但严格来讲它们�
 	|-- State
 	|-- Visuals
 
-<a name="3.2.4"></a>
-<a name="bp-vars-access"></a>
-#### 3.2.4 变量的访问权限 ![#](https://img.shields.io/badge/lint-unsupported-red.svg)
-
-在C++中，变量的访问类型由类成员的属性决定，Public类型的表示其他类都可以访问，Protetced类型的成员表示子类可以访问，Private类型变量表示只有类内部函数可以访问此变量。
-
-蓝图并没有类似的权限访问设计。
-
-就是视`可编辑`类型的变量作为Public类型变量，视不可编辑的变量作为Protected类型变量。
-
 <a name="3.2.4.1"></a>
 <a name="bp-vars-access-private"></a>
 ##### 3.2.4.1 私有变量 ![#](https://img.shields.io/badge/lint-unsupported-red.svg)
 
-尽量不要把变量生命为private类型，除非变量一开始就打算永远被类内部访问，并且类本身也没打算被继承。尽量用`protected`，private类型用在当你有非常清楚的理由要去限制子类的能力。
-
-<a name="3.2.5"></a>
-<a name="bp-vars-advanced"></a>
-#### 3.2.5 高级显示 ![#](https://img.shields.io/badge/lint-unsupported-red.svg)
-
-如果一个变量可以被编辑，但通常不会有人碰到，那么就把它标记为高级显示`Advanced Display`。这些变量在蓝图中会缺省隐藏，除非点击节点上的高级显示箭头。
-
-有意思的是，`Advanced Display`这个选项本身，在编辑器的变量属性中也是一个高级显示类型的。
-
-<a name="3.2.6"></a>
-<a name="bp-vars-transient"></a>
-#### 3.2.6 Transient 变量 ![#](https://img.shields.io/badge/lint-unsupported-red.svg)
-
-所有不能编辑并且初始值为0或者null的变量应该被标记为`Transient`
-
-Transient类型的变量是指那些不需要被序列化（保存或者加载），并且初始值为0或者null的变量。一般用在引用其他对象，它们的值只有在运行时才知道。
-
-这种属性的变量会被强制初始化为0或者null，并且不允许编辑器序列化它，以加快蓝图的加载时间。
-
-<a name="3.2.7"></a>
-<a name="bp-vars-savegame"></a>
-#### 3.2.7 SaveGame变量 ![#](https://img.shields.io/badge/lint-supported-green.svg)
-
-只有从`SaveGame`继承的子类中的成员变量才能够使用SaveGame属性，并且确保该变量应该被保存时才把这个属性设置上
-
-绝对**不要**将`SaveGame` 和 `Transient`同时使用，这是明显不合理的。
-
-<a name="3.2.8"></a>
-<a name="bp-vars-config"></a>
-#### 3.2.8 Config变量 ![#](https://img.shields.io/badge/lint-supported-green.svg)
-
-不要使用`Config Variable`这个标记，这会让设计师在控制蓝图行为上更加困难。这个标记一般用在C++中，用来标记那些极少被改变的变量，你可以认为它们是那些被标上`Advanced Advanced Display`的变量
+尽量不要把变量声明为private类型，除非变量一开始就打算永远被类内部访问，并且类本身也没打算被继承。尽量用`protected`，private类型用在当你有非常清楚的理由要去限制子类的能力。
 
 <a name="3.3"></a>
 <a name="bp-functions"></a>
@@ -942,7 +793,6 @@ Transient类型的变量是指那些不需要被序列化（保存或者加载�
 
 所有函数和事件执行者都是需要做一些动作，可能是去获取信息，也可能是数据计算，或者搞点什么事情。因此，所有函数都应该用动词开始，并且用一般现代时态，并且有上下文来表明它们究竟在做什么
 
-`OnRep` 这样的相应函数，事件具柄和事件派发器的命名不遵守这个规则。
 
 好的例子:
 
@@ -964,12 +814,6 @@ Transient类型的变量是指那些不需要被序列化（保存或者加载�
 * `ProcessData` - 无意义，这个名字等于没说.
 * `PlayerState` - 不能用名词
 * `Color` - 如果是动词，那么缺少上下文，如果是名词，也不行.
-
-<a name="3.3.1.2"></a>
-<a name="bp-funcs-naming-onrep"></a>
-#### 3.3.1.2 属性的状态变化响应函数应该命名为`OnRep_Variable`
-
-所有用来响应状态变化的函数应该用`OnRep_Variable`的形式，这是由蓝图编辑器强制规定的，如果你在C++中写`OnRep`函数，应该同样遵守这个规则。
 
 <a name="3.3.1.3"></a>
 <a name="bp-funcs-naming-bool"></a>
@@ -1046,66 +890,12 @@ Transient类型的变量是指那些不需要被序列化（保存或者加载�
 * `AllNotifyDeath` - 用 `Multicast`, 不要用 `All`.
 * `ClientWeapon` - 没有用动词, 让人困惑.
 
-
 <a name="3.3.2"></a>
 <a name="bp-funcs-return"></a>
 #### 3.3.2 所有函数都应该有返回节点
 
 所有函数都应该有返回节点，没有例外。
 
-返回节点明确标注了蓝图到此执行完毕。蓝图中的结构有可能有并行结构`Sequence`、循环结构`ForLoopWithBreak`或者逆向的回流节点组成，明确结束节点使蓝图易于阅读维护和调试。
-
-如果启用了返回节点，当你的蓝图中有分支没有正常返回，或者流程有问题，蓝图的编译器会提出警告。
-
-比如说，有程序员在并行序列中添加了一个新的分支，或者在循环体外添加逻辑但没有考虑到循环中的意外返回，那么这些情况都会造成蓝图的执行序列出现意外。蓝图编译器会立即给这些情况提出警告。
-
-<a name="3.4"></a>
-<a name="bp-graphs"></a>
-### 3.4 蓝图图形
-
-本节包含了关于蓝图图形的内容
-This section covers things that apply to all Blueprint graphs.
-
-<a name="3.4.1"></a>
-<a name="bp-graphs-spaghetti"></a>
-#### 3.4.1 不要画‘意面’
-
-蓝图中所有连线都应该有清晰的开始点和结束点。你的蓝图不应该让阅读者在一堆乱糟糟的线中翻来翻去。以下内容是帮助你避免‘意大利面’样式的蓝图产生。
-
-<a name="3.4.2"></a>
-<a name="bp-graphs-align-wires"></a>
-#### 3.4.2 保持连线对齐，而不是节点
-
-不要试图让节点对齐，对齐的应该是连线。你无法控制一个节点的大小和上面连接点的位置，但你能通过控制节点的位置来控制连线。笔直的连线让整个蓝图清晰美观，歪歪扭扭的连线会让蓝图丑陋不堪。你可以通过蓝图编辑器提供的功能直接让连线变直，方法是选择好节点，用快捷键Q
-
-好的例子: 所有上面的节点的执行线都保持为直线。
-![Aligned By Wires](https://github.com/allar/ue4-style-guide/raw/master/images/bp-graphs-align-wires-good.png "Aligned By Wires")
-
-不好的例子: 右上角节点的执行线歪了
-![Bad](https://github.com/allar/ue4-style-guide/raw/master/images/bp-graphs-align-wires-bad.png "Wiggly")
-
-可接受的例子: 有些节点无论你怎么用对齐工具都无法对齐，这种情况下，就尽量缩短它们之间连线的长度。
-![Acceptable](https://github.com/allar/ue4-style-guide/raw/master/images/bp-graphs-align-wires-acceptable.png "Acceptable")
-
-<a name="3.4.3"></a>
-<a name="bp-graphs-exec-first-class"></a>
-#### 3.4.3 白色的可执行线优先级最高
-
-如果发现白色执行线和其他数据线无法同时对齐，白色执行线的优先级更高。
-
-## 贡献者
-
-* [Michael Allar](http://allarsblog.com): [GitHub](https://github.com/Allar), [Twitter](https://twitter.com/michaelallar)
-* [CosmoMyzrailGorynych](https://github.com/CosmoMyzrailGorynych)
-* [billymcguffin](https://github.com/billymcguffin)
-* [akenatsu](https://github.com/akenatsu)
-
-## 版权
-
-Copyright (c) 2016 Gamemakin LLC
-
-查看版权协议 [LICENSE](/LICENSE)
-
-**[⬆ 回到最顶端](#toc)**
+比如说，有程序员在并行序列中添加了一个新的分支，或者在循环体外添加逻辑但没有考虑到循环中的意外返回，那么这些情况都会造成程序的执行序列出现意外。
 
 # };
