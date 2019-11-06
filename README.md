@@ -209,7 +209,7 @@
 
 不同项目共享资源时是通过导出导入package实现的，如此可以避免导入时相同路径的资源被意外覆盖。
 
-#### 2.2.3 Unity商店中的资源都是安全的
+#### 2.2.3 Unity商店
 
 Unity商店中的资源基本都遵循这个规范，所以可以安全的导入到项目中。例如，NGUI的所有资源都在`Assets/NGUI`目录中，导入和移除都很方便。
 
@@ -219,11 +219,11 @@ Unity商店中的资源基本都遵循这个规范，所以可以安全的导入
 
 ### 2.4 场景文件保存在Scenes目录中
 
-所有场景文件都应保存在`Assets/ProjectName/Scenes`中，可通过子目录组织场景资源，例如建立`Scenes/Arenas`。
+所有场景文件都应保存在`Assets/ProjectName/Scenes`目录中，可通过子目录组织场景资源，例如建立`Scenes/Arenas`。
 
 ### 2.5 使用Core目录保存核心代码
 
-使用`/Assets/ProjectName/Core`目录保存核心代码及相关资源，非程序人员不可修改该文件夹下的内容。
+使用`Assets/ProjectName/Core`目录保存核心代码及相关资源，非程序人员不可修改该文件夹下的内容。
 
 ### 2.6 不要创建名为Assets或者AssetTypes的目录
 
