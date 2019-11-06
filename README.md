@@ -157,7 +157,6 @@
     |   |-- Core
     |   |   |-- Engine
     |   |   |-- Gameplay
-    |   |   |-- Interactables
     |   |   |-- Weapons
     |   |-- Scenes
     |   |   |-- Level1
@@ -170,11 +169,6 @@
     |   |-- Dee
     |   |-- Puzi
     |-- NGUI
-    |-- Resources
-        |-- Combat
-        |   |-- Boss
-        |   |-- Minion
-        |-- Portrait
 ```
 
 ### 2.1 文件夹命名
@@ -183,7 +177,7 @@
 
 #### 2.1.1 使用PascalCase大小写规范
 
-所有单词的首字母大写，中间没有任何连接符，例如：`DesertEagle`、`RocketPistol`、 `ASeriesOfWords`。
+所有单词的首字母大写，中间没有任何连接符，例如：`MaterialLibrary`、`ASeriesOfWords`。
 
 #### 2.1.2 不要使用空格
 
