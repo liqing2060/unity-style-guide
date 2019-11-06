@@ -10,29 +10,25 @@
 
 <a name="anc"></a>
 <a name="1"></a>
-## 1. 资源命名约定 ![#](https://img.shields.io/badge/lint-partial_support-yellow.svg)
+## 1. 资源命名约定
 
-对于资源的命名的规范应该像法律一样被遵守。一个项目如果有好的命名规范，那么在资源管理、查找、解析、维护时，都会有极大的便利性。
-
-大多数资源的命名都应该有前缀，前缀一般是资源类型的缩写，然后使用下划线和资源名链接。
+应该严格遵守该约定，便于资源的使用和维护。
 
 <a name="base-asset-name"></a>
 <a name="1.1"></a>
-### 1.1 基本命名规则 `Prefix_BaseAssetName_Variant_Suffix` ![#](https://img.shields.io/badge/lint-partial_support-yellow.svg)
+### 1.1 基本命名规则
 
-时刻记住这个命名规范`Prefix_BaseAssetName_Variant_Suffix`，只要遵守它，大部分情况下都可以让命名规范。下面是详细的解释。
+基本格式：`Prefix_BaseAssetName_Variant_Suffix`，即 `前缀_基本资源名_拓展名_后缀`，详解：
 
-`Prefix`(前缀) 和 `Suffix`(后缀)由资源类型确定，请参照下面的[资源类型表](#asset-name-modifiers)。
+前缀`Prefix` 和 后缀`Suffix` 由资源类型确定，具体请参照[资源类型表](#asset-name-modifiers)。
 
-所有资源都应该有一个`BaseAssetName`(基本资源名)。所谓基本资源名表明该资源在逻辑关系上属于那种资源，任何属于该逻辑组的资源都应该遵守同样的命名规范
+基本资源名`BaseAssetName` 表明了资源在逻辑关系上属于谁，命名上应简短、便于记忆。  
+例如，有个角色叫Bob，那么所有和Bob相关的资源的`BaseAssetName`都应该叫做`Bob`。
 
-基本资源名应该使用简短而便于识别的词汇，例如，如果你有一个角色名字叫做Bob，那么所有和Bob相关的资源的`BaseAssetName`都应该叫做`Bob`
-
-`Varient`(扩展名)用来保证资源的唯一性，同样，扩展名也应该是简短而容易理解的短词，以说明该资源在所属的资源逻辑组中的子集。例如，如果Bob有多套皮肤，那么这些皮肤资源都应该使用Bob作为基本资源名同时包含扩展名，例如'Evil'类型的皮肤资源，名字应该是`Bob_Evil`，而Retro类型的皮肤应该是用`Bob_Retro`
-
-一般来说，如果仅仅是为了保证资源的唯一性，`Varient`可以使用从`01`开始的两位数字来表示。例如，如果你要制作一堆环境中使用的石头资源，那么他们应该命名为`Rock_01`, `Rock_02`, `Rock_03`等等。除非特殊需要，不要让数字超过三位数，如果你真的需要超过100个的资源序列，那么你应该考虑使用多个基础资源名
-
-基于你所制作的资源扩展属性，你可以把多个扩展名串联起来。例如，如果你在制作一套地板所使用的资源，那么你的资源除了使用`Flooring`作为基本名，扩展名可以使用多个，例如`Flooring_Marble_01`, `Flooring_Maple_01`, `Flooring_Tile_Squares_01`。
+扩展名`Varient`用来保证资源的唯一性。  
+例如，Bob有多套皮肤，则相关资源的名字可以是`Bob_Evil`、`Bob_Retro`。  
+若仅是为了保证资源的唯一性，`Varient`可以使用从`01`开始的两位数字来表示，例如，`Rock_01`、`Rock_02`等。  
+基于你所制作的资源扩展属性，你可以把多个扩展名串联起来，例如，`Bob_Evil_01`、`Bob_Evil_02`。
 
 <a name="1.1-examples"></a>
 #### 1.1 范例
