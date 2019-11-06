@@ -1,6 +1,6 @@
 # Unity工程规范
 
-本文改编自[Unity工程规范](https://github.com/luochuanyuewu/unity-style-guide)，介绍了Unity的工程使用规范，适用于程序、策划、美术等所有使用Unity的开发人员。
+本文改编自[Unity工程规范](https://github.com/luochuanyuewu/unity-style-guide)，适用于程序、策划、美术等使用Unity的开发人员。
 
 ## 1. 资源命名
 
@@ -32,7 +32,7 @@
 | Texture (Normal)        | T_Bob_N                                                    |
 | Texture (Evil Diffuse)  | T_Bob_Evil_D                                               |
 
-##### 1.1e2 Rocks相关资源
+##### 1.1e2 Rock相关资源
 
 | 资源类型                | 资源名                                                     |
 | ----------------------- | ---------------------------------------------------------- |
@@ -149,11 +149,6 @@
 ```
 |-- Assets
     |-- Fairytale
-    |   |-- Art
-    |   |   |-- Nature
-    |   |   |   |-- Rocks
-    |   |   |   |-- Trees
-    |   |   |-- Office
     |   |-- Characters
     |   |   |-- Bob
     |   |   |-- Common
@@ -164,9 +159,6 @@
     |   |   |-- Gameplay
     |   |   |-- Interactables
     |   |   |-- Weapons
-    |   |-- Effects
-    |   |   |-- Fire
-    |   |   |-- Weather
     |   |-- Scenes
     |   |   |-- Level1
     |   |   |-- Level2
@@ -178,6 +170,11 @@
     |   |-- Dee
     |   |-- Puzi
     |-- NGUI
+    |-- Resources
+        |-- Combat
+        |   |-- Boss
+        |   |-- Minion
+        |-- Portrait
 ```
 
 ### 2.1 文件夹命名
@@ -204,7 +201,7 @@
 
 #### 2.2.1 避免全局资源
 
-每个资源都应该有它存在的目的。如果仅仅是为了测试的资源，那么这些资源应该放在`开发者`目录中。
+每个资源都应该有它存在的目的。如果仅仅是为了测试的资源，那么这些资源应该放在开发目录中。
 
 #### 2.2.2 方便资源复用
 
