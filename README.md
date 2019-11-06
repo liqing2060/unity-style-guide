@@ -53,54 +53,39 @@
 
 <a name="asset-name-modifiers"></a>
 <a name="1.2"></a>
-### 1.2 资源类型表 ![#](https://img.shields.io/badge/lint-supported-green.svg)
+### 1.2 资源类型表
 
-当给一个资源命名的时候，请参照以下表格来决定在[基本资源名](#base-asset-name)前后所使用的前缀和后缀
+资源命的前缀和后缀请参照以下表格。
 
 #### 目录
 
-> 1.2.1 通用类型[Most Common](#anc-common)
-
-> 1.2.2 动作[Animations](#anc-animations)
-
-> 1.2.5 材质[Materials](#anc-materials)
-
-> 1.2.6 纹理[Textures](#anc-textures)
-
-> 1.2.7 杂项[Miscellaneous](#anc-misc)
-
-> 1.2.8 精灵[Sprites](#anc-paper2d)
-
-> 1.2.9 物理[Physics](#anc-physics)
-
-> 1.2.10 声音[Sound](#anc-sound)
-
-> 1.2.11 界面[User Interface](#anc-ui)
-
-> 1.2.12 特效[Effects](#anc-effects)
+> 1.2.1 通用 [Common](#anc-common)  
+> 1.2.2 动作 [Animations](#anc-animations)  
+> 1.2.5 材质 [Materials](#anc-materials)  
+> 1.2.6 纹理 [Textures](#anc-textures)  
+> 1.2.7 杂项 [Miscellaneous](#anc-misc)  
+> 1.2.8 精灵 [Sprites](#anc-paper2d)  
+> 1.2.9 物理 [Physics](#anc-physics)  
+> 1.2.10 声音 [Sound](#anc-sound)  
+> 1.2.11 界面 [UI](#anc-ui)  
+> 1.2.12 特效 [Effects](#anc-effects)  
 
 <a name="anc-common"></a>
 <a name="1.2.1"></a>
-#### 1.2.1 通用类型 ![#](https://img.shields.io/badge/lint-supported-green.svg)
-
+#### 1.2.1 通用
 | 资源类型                | 前缀       | 后缀       | 备注                             |
 | ----------------------- | ---------- | ---------- | -------------------------------- |
-| Level / Map             |            |            | [所有地图应该放在Scenes/Maps目录下](#2.4) |
-| Level (Persistent)      |            | _P         | _P表示是一个大的容器Level，在这个Level里可以异步加载其他小Level                               |
-| Level (Audio)           |            | _Audio     |                                  |
-| Level (Lighting)        |            | _Lighting  |                                  |
-| Level (Geometry)        |            | _Geo       |                                  |
-| Level (Gameplay)        |            | _Gameplay  |                                  |
+| Scene                   |            |            | [所有场景应该放在Scenes目录下](#2.4) |
 | Material                | M_         |            |                                  |
-| Static Mesh             | S_ or SM_  |            | 选一个，建议使用 S_.              |
+| Static Mesh             | S_         |            |                                  |
 | Skinned Mesh            | SK_        |            |                                  |
-| Texture                 | T_         | _?         | 参照[纹理](#anc-textures)         |
+| Texture                 | T_         | _?         | 后缀参照[纹理](#anc-textures)     |
 | Particle System         | PS_        |            |                                  |
-| Canvas        | UI_|            |            |
+| Canvas                  | UI_        |            |                                  |
 
 <a name="anc-animations"></a>
 <a name="1.2.2"></a>
-#### 1.2.2 动作 ![#](https://img.shields.io/badge/lint-supported-green.svg)
+#### 1.2.2 动作
 
 | 资源类型                | 前缀       | 后缀       | 备注                             |
 | ----------------------- | ---------- | ---------- | -------------------------------- |
@@ -112,17 +97,17 @@
 
 <a name="anc-materials"></a>
 <a name="1.2.5"></a>
-### 1.2.5 材质 ![#](https://img.shields.io/badge/lint-supported-green.svg)
+### 1.2.5 材质
 
 | 资源类型                | 前缀       | 后缀       | 备注                             |
 | ----------------------- | ---------- | ---------- | -------------------------------- |
 | Material                | M_         |            |                                  |
-| Shader | S_/SD_        |            |             建议SD_                    |
+| Shader |     SD_        |            |            |                                  |
 | Physical Materials      | PM_        |            |                                  |
 
 <a name="anc-textures"></a>
 <a name="1.2.6"></a>
-### 1.2.6 纹理 ![#](https://img.shields.io/badge/lint-supported-green.svg)
+### 1.2.6 纹理
 
 | 资源类型                | 前缀       | 后缀       | 备注                             |
 | ----------------------- | ---------- | ---------- | -------------------------------- |
@@ -131,7 +116,7 @@
 | Texture (Normal)        | T_         | _N         |                                  |
 | Texture (Roughness)     | T_         | _R         |                                  |
 | Texture (Alpha/Opacity) | T_         | _A         |                                  |
-| Texture (Ambient Occlusion) | T_     | _O or _AO  | 选一个，建议使用 _O.             |
+| Texture (Ambient Occlusion) | T_     | _O         |                                  |
 | Texture (Bump)          | T_         | _B         |                                  |
 | Texture (Emissive)      | T_         | _E         |                                  |
 | Texture (Mask)          | T_         | _M         |                                  |
@@ -143,16 +128,12 @@
 | Cube Render Texture      | RTC_       |            |                                  |
 
 <a name="1.2.6.1"></a>
-#### 1.2.6.1 纹理合并 ![#](https://img.shields.io/badge/lint-unsupported-red.svg)
-把多张纹理存于一个纹理文件中是很常见的方法，比如通常可以把自发光(Emissive), 粗糙度(Roughness), 环境光(Ambient Occlusion)以RGB通道的形式保存在纹理中，然后在文件的后缀中，注明这些信息，例如`_EGO`
-
-> 一般来说，在纹理的Diffuse信息中附带Alpha/Opacity信息是很常见的，这时在`_D`后缀中可以加入`A`也可以不用加
-
-不推荐同时把RGBA四个通道的信息保存在一张纹理中，这是由于带有Alpha通道的纹理要比不带的占用更多的资源，除非Alpha信息是以蒙版(Mask)的形式保存在Diffuse/Albedo通道中。
+#### 1.2.6.1 纹理合并
+纹理合并是很常见的方法，比如通常可以把自发光(Emissive)、粗糙度(Roughness)、环境光(Ambient Occlusion)以RGB通道的形式保存在纹理中，然后在文件的后缀中，注明这些信息，例如`_EGO`。
 
 <a name="anc-misc"></a>
 <a name="1.2.7"></a>
-### 1.2.7 杂项 ![#](https://img.shields.io/badge/lint-supported-green.svg)
+### 1.2.7 杂项
 
 | 资源类型                | 前缀       | 后缀       | 备注                             |
 | ----------------------- | ---------- | ---------- | -------------------------------- |
@@ -161,17 +142,17 @@
 
 <a name="anc-paper2d"></a>
 <a name="1.2.8"></a>
-### 1.2.8 2D ![#](https://img.shields.io/badge/lint-supported-green.svg)
+### 1.2.8 2D
 
 | 资源类型                | 前缀       | 后缀       | 备注                             |
 | ----------------------- | ---------- | ---------- | -------------------------------- |
-| Sprite                  | SPR_/SP_       |            |                                  |
-| Sprite Atlas Group      | SPRG_/SPG_      |            |                                  |
+| Sprite                  | SP_        |            |                                  |
+| Sprite Atlas Group      | SPG_       |            |                                  |
 | Tile Map                | TM_        |            |                                  |
 
 <a name="anc-physics"></a>
 <a name="1.2.9"></a>
-### 1.2.9 物理 ![#](https://img.shields.io/badge/lint-supported-green.svg)
+### 1.2.9 物理
 
 | 资源类型                | 前缀       | 后缀       | 备注                             |
 | ----------------------- | ---------- | ---------- | -------------------------------- |
@@ -180,16 +161,16 @@
 
 <a name="anc-sounds"></a>
 <a name="1.2.10"></a>
-### 1.2.10 声音 ![#](https://img.shields.io/badge/lint-supported-green.svg)
+### 1.2.10 声音
 
 | 资源类型                | 前缀       | 后缀       | 备注                             |
 | ----------------------- | ---------- | ---------- | -------------------------------- |
-| Audio Mixer               | Mix_       |            |                                  |
+| Audio Mixer             | Mix_       |            |                                  |
 | Sound Wave              | A_         |            |                                  |
 
 <a name="anc-ui"></a>
 <a name="1.2.11"></a>
-### 1.2.11 界面 ![#](https://img.shields.io/badge/lint-supported-green.svg)
+### 1.2.11 界面
 
 | 资源类型                | 前缀       | 后缀       | 备注                             |
 | ----------------------- | ---------- | ---------- | -------------------------------- |
@@ -197,7 +178,7 @@
 
 <a name="anc-effects"></a>
 <a name="1.2.12"></a>
-### 1.2.12 Effects ![#](https://img.shields.io/badge/lint-supported-green.svg)
+### 1.2.12 Effects
 
 | Asset Type              | Prefix     | Suffix     | Notes                            |
 | ----------------------- | ---------- | ---------- | -------------------------------- |
@@ -206,7 +187,7 @@
 
 <a name="2"></a>
 <a name="structure"></a>
-## 2. 目录结构 ![#](https://img.shields.io/badge/lint-partial_support-yellow.svg)
+## 2. 目录结构
 
 对资源目录的规范管理和资源文件同等重要，都应该像法律一样被严格遵守。不规范的目录结构会导致严重的混乱。
 
@@ -291,24 +272,24 @@
 
 <a name="2.1"></a>
 <a name="structure-folder-names"><a>
-### 2.1 文件夹命名 ![#](https://img.shields.io/badge/lint-partial_support-yellow.svg)
+### 2.1 文件夹命名
 
 关于文件夹的命名，有一些通用的规范
 
 <a name="2.1.1"></a>
-#### 2.1.1 使用PascalCase大小写规范[<sup>*</sup>](#terms-cases) ![#](https://img.shields.io/badge/lint-supported-green.svg)
+#### 2.1.1 使用PascalCase大小写规范[<sup>*</sup>](#terms-cases)
 
 文件夹的命名需要遵守PascalCase规范，也就是所有单词的首字母大写，并且中间没有任何连接符。例如`DesertEagle`, `RocketPistol`, and `ASeriesOfWords`.
 
 参照[大小写规范](#terms-cases).
 
 <a name="2.1.2"></a>
-#### 2.1.2 不要使用空格 ![#](https://img.shields.io/badge/lint-supported-green.svg)
+#### 2.1.2 不要使用空格
 
 作为对[2.1.1](#2.1.1)的补充，绝对不要在目录名中使用空格。空格会导致引擎以及其他命令行工具出现错误，同样，也不要把你的工程放在包含有空格的目录下面，应该放在类似于`D:\Project`这样的目录里，而不是`C:\Users\My Name\My Documents\Unreal Projects`这样的目录。
 
 <a name="2.1.3"></a>
-#### 2.1.3 不要使用其他Unicode语言字符或奇怪的符号 ![#](https://img.shields.io/badge/lint-supported-green.svg)
+#### 2.1.3 不要使用其他Unicode语言字符或奇怪的符号
 
 如果你游戏中的角色的名字叫做'Zoë'，那么文件夹要其名为`Zoe`。在目录名中使用这样的字符的后果甚至比使用空格还严重，因为某些引擎工具在设计时压根就没有考虑这种情况。
 
@@ -318,7 +299,7 @@
 
 <a name="2.2"></a>
 <a name="structure-top-level"><a>
-### 2.2 使用一个顶级目录来保存所有工程资源 ![#](https://img.shields.io/badge/lint-supported-green.svg)
+### 2.2 使用一个顶级目录来保存所有工程资源
 
 所有的工程资源都应该保存在一个以工程名命名的目录中。例如你有一个工程叫做'Fairytale'，那么所有该工程的资源都应该保存在`Assets/Fairytale`目录中。
 
@@ -368,7 +349,7 @@
 
 <a name="2.3"></a>
 <a name="structure-developers"></a>
-### 2.3 用来做临时测试的开发者目录 ![#](https://img.shields.io/badge/lint-unsupported-red.svg)
+### 2.3 用来做临时测试的开发者目录
 
 在一个项目的开发期间，团队成员经常会有一个'沙箱'目录用来做测试而不会影响到工程本身。因为工作是连续的，所以即使这些'沙箱'目录也需要上传到源码服务器上保存。但并不是所有团队成员都需要这种开发者目录的，但使用开发者目录的成员来说，一旦这些目录是在服务器上管理的，总会需要一些麻烦事。
 
@@ -380,7 +361,7 @@
 
 <a name="2.4"></a>
 <a name="structure-Scenes"></a>
-### 2.4 所有的地图文件应该保存在一个名为'Scenes'的目录中 ![#](https://img.shields.io/badge/lint-supported-green.svg)
+### 2.4 所有的地图文件应该保存在一个名为'Scenes'的目录中
 
 地图文件非常特殊，几乎所有工程都有自己的一套关于地图的命名规则，尤其是使用了sub-levels或者streaming levels技术时。但不管你如何组织自己的命名规则，都应该把所有地图保存在`/Assets/ProjectName/Scenes`
 
@@ -390,7 +371,7 @@
 
 <a name="2.5"></a>
 <a name="structure-core"></a>
-### 2.5 使用`Core`目录存储核心代码资源以及其他文件资源 ![#](https://img.shields.io/badge/lint-unsupported-red.svg)
+### 2.5 使用`Core`目录存储核心代码资源以及其他文件资源
 
 使用`/Assets/Project/Core`这个目录用来保存一个工程中最为核心的资源。例如，非常基础的`Manager`, `Character`, `PlayerController`, `Sington`, `PlayerState`，以及如此相关的一些资源也应该放在这里。
 
@@ -400,15 +381,15 @@
 
 <a name="2.6"></a>
 <a name="structure-assettypes"></a>
-### 2.6 不要创建名为`Assets` 或者 `AssetTypes`的目录 ![#](https://img.shields.io/badge/lint-supported-green.svg)
+### 2.6 不要创建名为`Assets` 或者 `AssetTypes`的目录
 
 <a name="2.6.1"></a>
-#### 2.6.1 创建一个名为`Assets`的目录是多余的。 ![#](https://img.shields.io/badge/lint-supported-green.svg)
+#### 2.6.1 创建一个名为`Assets`的目录是多余的。
 
 因为本来所有目录就是用来保存资源的
 
 <a name="2.6.2"></a>
-#### 2.6.2 创建名为`Meshes`、 `Textures`或者`Materials`的目录是多余的。 ![#](https://img.shields.io/badge/lint-supported-green.svg)
+#### 2.6.2 创建名为`Meshes`、 `Textures`或者`Materials`的目录是多余的。
 
 资源的文件名本身已经提供了资源类型信息，所以在目录名中再提供资源类型信息就是多余了，而且使用资源浏览器的过滤功能，可以非常便利的提供相同的功能。
 
@@ -420,7 +401,7 @@
 
 <a name="2.7"></a>
 <a name="structure-large-sets"></a>
-### 2.7 超大资源要有自己的目录结构 ![#](https://img.shields.io/badge/lint-unsupported-red.svg)
+### 2.7 超大资源要有自己的目录结构
 
 这节可以视为针对[2.6](#2.6)的补充
 
@@ -432,7 +413,7 @@
 
 <a name="2.8"></a>
 <a name="structure-material-library"></a>
-### 2.8 材质库`MaterialLibrary` ![#](https://img.shields.io/badge/lint-unsupported-red.svg)
+### 2.8 材质库`MaterialLibrary`
 
 如果你的工程中使用了任何基础材质、分层材质，或者任何被重复使用而不属于特定模型的材质和纹理，这些资源应该放在材质库目录`Assets/Project/MaterialLibrary`。
 
