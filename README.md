@@ -1,39 +1,39 @@
 # Unity工程规范
 
-本文改编自[Unity工程规范](https://github.com/luochuanyuewu/unity-style-guide)，介绍了Unity的工程使用规范，适用于程序、策划、美术等所有Unity开发人员。
+本文改编自[Unity工程规范](https://github.com/luochuanyuewu/unity-style-guide)，介绍了Unity的工程使用规范，适用于程序、策划、美术等所有使用Unity的开发人员。
 
 <a name="toc"></a>
 ## 目录
 
-> 1. [资源命名约定](#anc)
+> 1. [资源命名](#anc)
 > 1. [目录结构](#structure)
 
 <a name="anc"></a>
 <a name="1"></a>
-## 1. 资源命名约定
+## 1. 资源命名
 
-应该严格遵守该约定，以便于资源的使用和维护。
+应严格遵守该规范，以便于资源的使用和维护。
 
 <a name="base-asset-name"></a>
 <a name="1.1"></a>
 ### 1.1 基本命名规则
 
-基本格式：`Prefix_BaseAssetName_Variant_Suffix`，即 `前缀_基本资源名_拓展名_后缀`，详解：
+格式：`Prefix_BaseAssetName_Variant_Suffix`，即 `前缀_基本资源名_拓展名_后缀`，详解：
 
 前缀`Prefix` 和 后缀`Suffix` 由资源类型确定，具体请参照[资源类型表](#asset-name-modifiers)。
 
-基本资源名`BaseAssetName` 表明了资源在逻辑关系上属于谁，命名上应简短、便于记忆。  
+基本资源名`BaseAssetName` 表明了属于谁，命名上应简短、便于记忆。  
 例如，有个角色叫Bob，那么所有和Bob相关的资源的`BaseAssetName`都应该叫做`Bob`。
 
 扩展名`Varient`用来保证资源的唯一性。  
-例如，Bob有多套皮肤，则相关资源的名字可以是`Bob_Evil`、`Bob_Retro`。  
-若仅是为了保证资源的唯一性，`Varient`可以使用从`01`开始的两位数字来表示，例如，`Rock_01`、`Rock_02`等。  
-基于你所制作的资源扩展属性，你可以把多个扩展名串联起来，例如，`Bob_Evil_01`、`Bob_Evil_02`。
+例如，Bob有多套皮肤，则相关资源的名字可以是`Bob_Evil`、`Bob_Hiphop`。  
+`Varient`可以使用从`01`开始的两位数字来表示，例如`Rock_01`、`Rock_02`。  
+可以把多个扩展名串联起来，例如`Bob_Evil_01`、`Bob_Evil_02`。
 
 <a name="1.1-examples"></a>
 #### 1.1 范例
 
-##### 1.1e1 Bob
+##### 1.1e1 Bob相关资源
 
 | 资源类型                | 资源名                                                     |
 | ----------------------- | ---------------------------------------------------------- |
@@ -43,7 +43,7 @@
 | Texture (Normal)        | T_Bob_N                                                    |
 | Texture (Evil Diffuse)  | T_Bob_Evil_D                                               |
 
-##### 1.1e2 Rocks
+##### 1.1e2 Rocks相关资源
 
 | 资源类型                | 资源名                                                     |
 | ----------------------- | ---------------------------------------------------------- |
@@ -55,33 +55,33 @@
 <a name="1.2"></a>
 ### 1.2 资源类型表
 
-资源命的前缀和后缀请参照以下表格。
+前缀和后缀请参照以下表格。
 
 #### 目录
 
 > 1.2.1 通用 [Common](#anc-common)  
 > 1.2.2 动作 [Animations](#anc-animations)  
-> 1.2.5 材质 [Materials](#anc-materials)  
-> 1.2.6 纹理 [Textures](#anc-textures)  
-> 1.2.7 杂项 [Miscellaneous](#anc-misc)  
-> 1.2.8 精灵 [Sprites](#anc-paper2d)  
-> 1.2.9 物理 [Physics](#anc-physics)  
-> 1.2.10 声音 [Sound](#anc-sound)  
-> 1.2.11 界面 [UI](#anc-ui)  
-> 1.2.12 特效 [Effects](#anc-effects)  
+> 1.2.3 材质 [Materials](#anc-materials)  
+> 1.2.4 纹理 [Textures](#anc-textures)  
+> 1.2.5 杂项 [Miscellaneous](#anc-misc)  
+> 1.2.6 精灵 [Sprites](#anc-paper2d)  
+> 1.2.7 物理 [Physics](#anc-physics)  
+> 1.2.8 声音 [Sound](#anc-sound)  
+> 1.2.9 界面 [UI](#anc-ui)  
+> 1.2.10 特效 [Effects](#anc-effects)  
 
 <a name="anc-common"></a>
 <a name="1.2.1"></a>
 #### 1.2.1 通用
 | 资源类型                | 前缀       | 后缀       | 备注                             |
 | ----------------------- | ---------- | ---------- | -------------------------------- |
-| Scene                   |            |            | [所有场景应该放在Scenes目录下](#2.4) |
+| Scene                   |            |            | [场景应该放在Scenes目录下](#2.4)   |
+| Prefab                  | P_         |            |                                  |
 | Material                | M_         |            |                                  |
 | Static Mesh             | S_         |            |                                  |
 | Skinned Mesh            | SK_        |            |                                  |
 | Texture                 | T_         | _?         | 后缀参照[纹理](#anc-textures)     |
 | Particle System         | PS_        |            |                                  |
-| Canvas                  | UI_        |            |                                  |
 
 <a name="anc-animations"></a>
 <a name="1.2.2"></a>
@@ -96,8 +96,8 @@
 
 
 <a name="anc-materials"></a>
-<a name="1.2.5"></a>
-### 1.2.5 材质
+<a name="1.2.3"></a>
+### 1.2.3 材质
 
 | 资源类型                | 前缀       | 后缀       | 备注                             |
 | ----------------------- | ---------- | ---------- | -------------------------------- |
@@ -106,8 +106,8 @@
 | Physical Materials      | PM_        |            |                                  |
 
 <a name="anc-textures"></a>
-<a name="1.2.6"></a>
-### 1.2.6 纹理
+<a name="1.2.4"></a>
+### 1.2.4 纹理
 
 | 资源类型                | 前缀       | 后缀       | 备注                             |
 | ----------------------- | ---------- | ---------- | -------------------------------- |
@@ -127,13 +127,12 @@
 | Render Texture           | RT_        |            |                                  |
 | Cube Render Texture      | RTC_       |            |                                  |
 
-<a name="1.2.6.1"></a>
-#### 1.2.6.1 纹理合并
-纹理合并是很常见的方法，比如通常可以把自发光(Emissive)、粗糙度(Roughness)、环境光(Ambient Occlusion)以RGB通道的形式保存在纹理中，然后在文件的后缀中，注明这些信息，例如`_EGO`。
+
+> 纹理合并是很常见的方法，比如通常可以把自发光(Emissive)、粗糙度(Roughness)、环境光(Ambient Occlusion)以RGB通道的形式保存在纹理中，然后在文件的后缀中，注明这些信息，例如`_EGO`。
 
 <a name="anc-misc"></a>
-<a name="1.2.7"></a>
-### 1.2.7 杂项
+<a name="1.2.5"></a>
+### 1.2.5 杂项
 
 | 资源类型                | 前缀       | 后缀       | 备注                             |
 | ----------------------- | ---------- | ---------- | -------------------------------- |
@@ -141,8 +140,8 @@
 | Playables Assets  | PA_       |            |                                  |
 
 <a name="anc-paper2d"></a>
-<a name="1.2.8"></a>
-### 1.2.8 2D
+<a name="1.2.6"></a>
+### 1.2.6 精灵
 
 | 资源类型                | 前缀       | 后缀       | 备注                             |
 | ----------------------- | ---------- | ---------- | -------------------------------- |
@@ -151,8 +150,8 @@
 | Tile Map                | TM_        |            |                                  |
 
 <a name="anc-physics"></a>
-<a name="1.2.9"></a>
-### 1.2.9 物理
+<a name="1.2.7"></a>
+### 1.2.7 物理
 
 | 资源类型                | 前缀       | 后缀       | 备注                             |
 | ----------------------- | ---------- | ---------- | -------------------------------- |
@@ -160,8 +159,8 @@
 | Destructible Mesh       | DM_        |            |                                  |
 
 <a name="anc-sounds"></a>
-<a name="1.2.10"></a>
-### 1.2.10 声音
+<a name="1.2.8"></a>
+### 1.2.8 声音
 
 | 资源类型                | 前缀       | 后缀       | 备注                             |
 | ----------------------- | ---------- | ---------- | -------------------------------- |
@@ -169,16 +168,17 @@
 | Sound Wave              | A_         |            |                                  |
 
 <a name="anc-ui"></a>
-<a name="1.2.11"></a>
-### 1.2.11 界面
+<a name="1.2.9"></a>
+### 1.2.9 界面
 
 | 资源类型                | 前缀       | 后缀       | 备注                             |
 | ----------------------- | ---------- | ---------- | -------------------------------- |
 | Font                    | Font_      |            |                                  |
+| Canvas                  | UI_        |            |                                  |
 
 <a name="anc-effects"></a>
-<a name="1.2.12"></a>
-### 1.2.12 Effects
+<a name="1.2.10"></a>
+### 1.2.10 特效
 
 | Asset Type              | Prefix     | Suffix     | Notes                            |
 | ----------------------- | ---------- | ---------- | -------------------------------- |
@@ -199,13 +199,7 @@
 |-- Assets
     |-- <a href="#2.2">Fairytale</a>
         |-- Art
-        |   |-- Industrial
-        |   |   |-- Ambient
-        |   |   |-- Machinery
-        |   |   |-- Pipes
         |   |-- Nature
-        |   |   |-- Ambient
-        |   |   |-- Foliage
         |   |   |-- Rocks
         |   |   |-- Trees
         |   |-- Office
@@ -214,18 +208,12 @@
         |   |-- Common
         |   |   |-- <a href="#2.7">Animations</a>
         |   |   |-- Audio
-        |   |-- Jack
-        |   |-- Steve
-        |   |-- <a href="#2.1.3">Zoe</a>
         |-- <a href="#2.5">Core</a>
-        |   |-- Characters
         |   |-- Engine
-        |   |-- <a href="#2.1.2">GameModes</a>
+        |   |-- <a href="#2.1.2">Gameplay</a>
         |   |-- Interactables
-        |   |-- Pickups
         |   |-- Weapons
         |-- Effects
-        |   |-- Electrical
         |   |-- Fire
         |   |-- Weather
         |-- <a href="#2.4">Scenes</a>
@@ -234,20 +222,12 @@
         |-- <a href="#2.8">MaterialLibrary</a>
         |   |-- Debug
         |   |-- Metal
-        |   |-- Paint
         |   |-- Utility
-        |   |-- Weathering
-        |-- Placeables
-        |   |-- Pickups
         |-- Weapons
             |-- Common
             |-- Pistols
             |   |-- DesertEagle
-            |   |-- RocketPistol
-            |-- Rifles
 </pre>
-
-使用这种目录结构的原因如下：
 
 ### 目录
 
@@ -264,7 +244,7 @@
 <a name="structure-folder-names"></a>
 ### 2.1 文件夹命名
 
-关于文件夹的命名，有一些通用的规范。
+文件夹命名通用规范：
 
 <a name="2.1.1"></a>
 #### 2.1.1 使用PascalCase大小写规范[<sup>*</sup>](#terms-cases)
@@ -279,13 +259,13 @@
 **绝对不要**在目录名中使用空格，空格会导致引擎或工具出现错误。
 
 <a name="2.1.3"></a>
-#### 2.1.3 不要使用其他Unicode语言字符或奇怪的符号
+#### 2.1.3 使用安全字符
 
 在目录名中只使用`a-z`、`A-Z`、`0-9`这些安全的字符，`@`、`-`、`_`、`,`、`*`、`#`等字符会引发异常。
 
 <a name="2.2"></a>
 <a name="structure-top-level"></a>
-### 2.2 使用一个顶级目录来保存所有工程资源
+### 2.2 顶级目录
 
 所有工程资源都应该保存在一个以工程名命名的目录中。例如工程叫'Fairytale'，那么工程资源应该保存在`Assets/Fairytale`中。
 
@@ -299,36 +279,34 @@
 <a name="2.2.2"></a>
 #### 2.2.2 方便资源复用
 
-不同项目共享资源时是通过Unity导出导入package实现的，如此可以避免导入时相同路径的资源被意外覆盖的情况。
+不同项目共享资源时是通过导出导入package实现的，如此可以避免导入时相同路径的资源被意外覆盖。
 
 <a name="2.2.3"></a>
 #### 2.2.3 Unity商店中的资源都是安全的
 
-Unity商店中的资源基本都遵循这个规范，所以可以安全的导入到项目中。例如，NGUI的所有资源都在`Assets/NGUI`目录中，导入和移除都方便安全。
+Unity商店中的资源基本都遵循这个规范，所以可以安全的导入到项目中。例如，NGUI的所有资源都在`Assets/NGUI`目录中，导入和移除都很方便。
 
 <a name="2.3"></a>
 <a name="structure-developers"></a>
-### 2.3 开发者目录
+### 2.3 开发目录
 
-用于实验、测试的资源应保存与开发者目录，例如`Assets/Develop/Dee`。开发目录中的资源不得被工程目录使用，如需使用则必须移到工程目录中。
+用于实验、测试的资源应保存于开发目录，例如`Assets/Develop/Dee`。开发目录中的资源不得被工程目录使用，如需使用则必须移到工程目录中。
 
 <a name="2.4"></a>
 <a name="structure-Scenes"></a>
-### 2.4 场景文件保存在'Scenes'目录中
+### 2.4 场景文件保存在`Scenes`目录中
 
 所有场景文件都应保存在`Assets/ProjectName/Scenes`中，可通过子目录组织场景资源，例如建立`Scenes/Arenas`。
 
-如此便于发布版本、烘培光照贴图、质量检查。
-
 <a name="2.5"></a>
 <a name="structure-core"></a>
-### 2.5 使用`Core`目录保存代码资源
+### 2.5 使用`Core`目录保存核心代码
 
 使用`/Assets/ProjectName/Core`目录保存核心代码及相关资源，非程序人员不可修改该文件夹下的内容。
 
 <a name="2.6"></a>
 <a name="structure-assettypes"></a>
-### 2.6 不要创建名为`Assets` 或者 `AssetTypes`的目录
+### 2.6 不要创建名为`Assets`或者`AssetTypes`的目录
 
 <a name="2.6.1"></a>
 #### 2.6.1 创建一个名为`Assets`的目录是多余的。
@@ -366,18 +344,15 @@ Unity商店中的资源基本都遵循这个规范，所以可以安全的导入
 ## 专业术语
 
 <a name="terms-cases"></a>
-##### Cases(大小写）
+### Cases(大小写）
 
-对于字母大小写的规范有数种，以下是几种常见的几种
+对于字母大小写的规范有数种，以下是常见的几种：
 
-> ###### PascalCase
->
+> #### PascalCase
 > 每个单词的首字母都是大写，单词之间没有其他字符，例如 ：`DesertEagle`, `StyleGuide`, `ASeriesOfWords`。
 > 
-> ###### camelCase
->
+> #### camelCase
 > 第一个单词的首字母小写，后面的单词的首字母大写，例如：`desertEagle`, `styleGuide`, `aSeriesOfWords`。
 >
-> ###### Snake_case
->
+> #### Snake_case
 > 单词之间用下划线链接，单词的首字母可以大写也可以小写，例如：`desert_Eagle`, `Style_Guide`, `a_Series_of_Words`
