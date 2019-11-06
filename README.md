@@ -189,11 +189,9 @@
 <a name="structure"></a>
 ## 2. 目录结构
 
-对资源目录的规范管理和资源文件同等重要，都应该像法律一样被严格遵守。不规范的目录结构会导致严重的混乱。
+在本套规范中，我们尽量利用了Unity的Project视图的**过滤**和**搜索**功能来查找资源，而不是按照资源类型来划分目录结构。
 
-有多种不同管理Unity资源目录的方法，在本套规范中，我们尽量利用了Unity的Project视图的过滤和搜索功能来查找资源，而不是按照资源类型来划分目录结构。
-
-> 如果你正确遵守了前面使用前缀的资源[命名规范](#1.2)，那么就没有必要按照资源类型创建类似于`Meshes`, `Textures`, 和 `Materials`这样的目录结构，因为你可以在过滤器中通过前缀来找到特定类型的资源
+> 如果你正确遵守了前面使用前缀的资源[命名规范](#1.2)，那么就没有必要按照资源类型创建`Meshes`、`Textures`和 `Materials`这样的目录结构，因为你可以在过滤器中通过前缀来找到特定类型的资源。
 
 <a name="2e1"><a>
 ### 2e1 目录结构示例
@@ -249,70 +247,56 @@
             |-- Rifles
 </pre>
 
-使用这种目录结构的原因列在下面
+使用这种目录结构的原因如下：
 
 ### 目录
 
-> 2.1 文件夹命名[Folder Names](#structure-folder-names)
-
-> 2.2 顶层目录[Top-Level Folders](#structure-top-level)
-
-> 2.3 开发者目录[Developer Folders](#structure-developers)
-
-> 2.4 地图目录[Scenes](#structure-Scenes)
-
-> 2.5 核心资源[Core](#structure-core)
-
-> 2.6 [避免以`Assets` 或 `AssetTypes`命名](#structure-assettypes)
-
-> 2.7 超大资源[Large Sets](#structure-large-sets)
-
-> 2.8 材质库[Material Library](#structure-material-library)
-
+> 2.1 文件夹命名 [Folder Names](#structure-folder-names)  
+> 2.2 顶层目录 [Top-Level Folders](#structure-top-level)  
+> 2.3 开发者目录 [Developer Folders](#structure-developers)  
+> 2.4 场景目录 [Scenes](#structure-Scenes)  
+> 2.5 核心资源 [Core](#structure-core)  
+> 2.6  [避免以`Assets` 或 `AssetTypes`命名](#structure-assettypes)  
+> 2.7 超大资源 [Large Sets](#structure-large-sets)  
+> 2.8 材质库 [Material Library](#structure-material-library)  
 
 <a name="2.1"></a>
-<a name="structure-folder-names"><a>
+<a name="structure-folder-names"></a>
 ### 2.1 文件夹命名
 
-关于文件夹的命名，有一些通用的规范
+关于文件夹的命名，有一些通用的规范。
 
 <a name="2.1.1"></a>
 #### 2.1.1 使用PascalCase大小写规范[<sup>*</sup>](#terms-cases)
 
-文件夹的命名需要遵守PascalCase规范，也就是所有单词的首字母大写，并且中间没有任何连接符。例如`DesertEagle`, `RocketPistol`, and `ASeriesOfWords`.
+文件夹的命名需要遵守PascalCase规范，也就是所有单词的首字母大写，并且中间没有任何连接符。例如：`DesertEagle`、`RocketPistol`、 `ASeriesOfWords`。
 
 参照[大小写规范](#terms-cases).
 
 <a name="2.1.2"></a>
 #### 2.1.2 不要使用空格
 
-作为对[2.1.1](#2.1.1)的补充，绝对不要在目录名中使用空格。空格会导致引擎以及其他命令行工具出现错误，同样，也不要把你的工程放在包含有空格的目录下面，应该放在类似于`D:\Project`这样的目录里，而不是`C:\Users\My Name\My Documents\Unreal Projects`这样的目录。
+作为对[2.1.1](#2.1.1)的补充，**绝对不要**在目录名中使用空格，空格会导致引擎以及其他命令行工具出现错误。同样，也不要把你的工程放在包含有空格的目录下面，应该放在类似于`D:\Project`这样的目录里，而不是`D:\My Projects`这样的目录。
 
 <a name="2.1.3"></a>
 #### 2.1.3 不要使用其他Unicode语言字符或奇怪的符号
 
-如果你游戏中的角色的名字叫做'Zoë'，那么文件夹要其名为`Zoe`。在目录名中使用这样的字符的后果甚至比使用空格还严重，因为某些引擎工具在设计时压根就没有考虑这种情况。
+如果你项目中角色的名字叫做'Zoë'，那么文件夹要其名为`Zoe`。
 
-顺便说一句，如果你的工程碰到了类似于[这篇帖子](https://answers.unrealengine.com/questions/101207/undefined.html)中的情况，并且当前使用的系统用户名中包含有Unicode字符（比如 `Zoë`），那么只要把工程从`My Documents`目录移到类似于`D:\Project`这种简单的目录里就可以解决了。
-
-记住永远在目录名中只使用`a-z`, `A-Z`, 和 `0-9`这些安全的字符，如果你使用了类似于`@`, `-`, `_`, `,`, `*`, 或者 `#`这样的字符，难免会碰到一些操作系统、源码管理工具或者一些弱智的工具让你吃个大亏。
+记住永远在目录名中只使用`a-z`, `A-Z`, 和 `0-9`这些安全的字符，如果你使用了类似于`@`, `-`, `_`, `,`, `*`, 或者 `#`这样的字符，难免会碰到一些操作系统、源码管理工具造成的麻烦。
 
 <a name="2.2"></a>
-<a name="structure-top-level"><a>
+<a name="structure-top-level"></a>
 ### 2.2 使用一个顶级目录来保存所有工程资源
 
 所有的工程资源都应该保存在一个以工程名命名的目录中。例如你有一个工程叫做'Fairytale'，那么所有该工程的资源都应该保存在`Assets/Fairytale`目录中。
 
-> 开发者目录`Developers`不用受此限制，因为开发者资源是以实验目的使用的，参照下面的[开发者目录](#2.3)中的详细说明。
-
-使用顶级目录的原因有很多。
+使用顶级目录的原因有很多：
 
 <a name="2.2.1"></a>
 #### 2.2.1 避免全局资源
 
-通常在代码规范中会警告你不要使用全局变量以避免污染全局命名空间。基于同样的道理，不存在于工程目录中的资源对于资源管理会造成不必要的干扰。
-
-每个属于项目资源都应该有它存在的目的。如果仅仅是为了测试或者体验而使用的资源，那么这些资源应该放在[`开发者`](#2.3)目录中。
+每个资源都应该有它存在的目的。如果仅仅是为了测试的资源，那么这些资源应该放在[`开发者`](#2.3)目录中。
 
 <a name="2.2.2"></a>
 #### 2.2.2 减少资源迁移时的冲突
